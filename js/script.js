@@ -87,33 +87,23 @@ const initialItems = [
     }
 ];
 
-// Duplicate items to reach 20
+// Generate 20 items by cycling through initialItems
 const portfolioItems = [];
 const totalItemsNeeded = 20;
 
-// Helper to get a random item from initialItems
-function getRandomItem(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
 for (let i = 0; i < totalItemsNeeded; i++) {
-    // Use modulo to cycle through initial items if we run out, or pick randomly
-    // Here we cycle to ensure variety
     const baseItem = initialItems[i % initialItems.length];
-    
-    // Create a deep copy to avoid reference issues
     const newItem = JSON.parse(JSON.stringify(baseItem));
     
-    // Modify ID and Title for duplicates so they are unique
     if (i >= initialItems.length) {
         newItem.id = `${newItem.id}-${i + 1}`;
         newItem.title = `${newItem.title} ${i + 1}`;
-        newItem.date = `0${(i % 12) + 1}.202${5 - Math.floor(i/12)}`; // Fake date variation
+        // Just a simple way to vary dates for visual variety
+        newItem.date = `0${(i % 12) + 1}.202${5 - Math.floor(i/12)}`; 
     }
     
     portfolioItems.push(newItem);
 }
-
 
 // --- ROUTER ---
 if (window.location.pathname.includes('project.html')) {
@@ -135,13 +125,13 @@ function render(filter = 'all') {
     filteredItems.forEach((item, index) => {
         const el = document.createElement('div');
         el.className = 'work-item';
-        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`; // Faster animation for many items
+        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`;
         el.style.opacity = '0';
 
         el.innerHTML = `
             <a href="project.html?id=${item.id}" class="work-link">
                 <div class="work-image">
-                    <img src="${item.img}" alt="${item.title}" loading="lazy"> <!-- Added lazy loading -->
+                    <img src="${item.img}" alt="${item.title}" loading="lazy">
                     <div class="image-overlay">
                         <div class="circular-border"></div>
                         <span class="see-more-btn">SEE MORE &rarr;</span>
@@ -197,7 +187,6 @@ function loadProjectDetail() {
     
     if (!project) return;
 
-    // Use optional chaining or checks to avoid errors if elements missing
     const elTitle = document.getElementById('p-project');
     if(elTitle) elTitle.innerText = project.title;
     
@@ -219,7 +208,7 @@ function loadProjectDetail() {
             project.gallery.forEach(src => {
                 const img = document.createElement('img');
                 img.src = src;
-                img.loading = "lazy"; // Lazy load gallery images
+                img.loading = "lazy";
                 galleryContainer.appendChild(img);
             });
         } else {
@@ -290,7 +279,6 @@ function updateClock() {
     hours = hours % 12; hours = hours ? hours : 12; 
     
     const clockEl = document.getElementById('live-clock');
-    // Safety check included here
     if(clockEl) clockEl.innerText = `ZÜRICH, CH ${hours}:${minutes} ${ampm}`;
 }
 setInterval(updateClock, 1000);
