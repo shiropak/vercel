@@ -17,8 +17,11 @@
             --accent: #ffffff;
             --hover-bg: #1a1a1a;
             --font-mono: 'Space Mono', monospace;
-            --padding: 40px; /* Consistent padding around the screen */
-            --gap: 20px;      /* Consistent gap between items */
+            
+            /* SPACING VARIABLES */
+            --page-padding: 60px; /* Distance from screen edges */
+            --grid-gap: 40px;     /* Space between columns */
+            --max-width: 1800px;  /* Prevents it from being too wide */
         }
 
         [data-theme="light"] {
@@ -35,51 +38,46 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: var(--font-mono);
-            font-size: 11px; /* Exact small tech size */
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            overflow-x: hidden;
+            /* ADDING THE FRAME */
+            padding: var(--page-padding); 
+            width: 100%;
+        }
+
+        /* WRAPPER to stop it from being "Fullscreen" on huge monitors */
+        .site-wrapper {
+            max-width: var(--max-width);
+            margin: 0 auto; /* Center the site */
         }
 
         a { text-decoration: none; color: inherit; cursor: pointer; }
         button { background: none; border: none; color: inherit; font-family: inherit; cursor: pointer; text-transform: uppercase; font-size: 11px;}
 
-        /* --- THE UNIFIED GRID SYSTEM --- */
-        /* This locks Header and Content to the same 4 columns */
+        /* --- UNIFIED GRID --- */
         .grid-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 Equal Columns */
-            column-gap: var(--gap);
-            padding: 0 var(--padding);
+            grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 Columns */
+            column-gap: var(--grid-gap);
             width: 100%;
         }
 
         /* --- HEADER --- */
         header {
-            position: sticky;
-            top: 0;
-            background: var(--bg);
+            margin-bottom: 60px; /* Push content down */
+            position: relative;
             z-index: 100;
-            padding-top: 30px;
-            padding-bottom: 30px;
         }
 
         .header-col { display: flex; flex-direction: column; gap: 5px; }
         .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
-        
-        /* Aligning the header links to match the columns */
-        .header-link { display: block; }
-        
-        .header-right {
-            display: flex;
-            justify-content: space-between; /* Pushes Theme Toggle to far right */
-        }
+        .header-right { display: flex; justify-content: space-between; }
 
-        /* --- CONTROLS (Floating Box) --- */
+        /* --- CONTROLS --- */
         .controls-wrapper {
-            padding: 0 var(--padding);
-            margin-bottom: 40px;
-            margin-top: 20px;
+            margin-bottom: 60px;
+            grid-column: 1 / -1; /* Span full width */
         }
         
         .controls-box {
@@ -97,50 +95,42 @@
         .control-option:hover { opacity: 0.8; }
 
         /* --- WORKS GRID --- */
-        .works-container {
-            padding-bottom: 100px;
-        }
-
         .work-item {
-            margin-bottom: 40px; /* Space between rows */
+            margin-bottom: 80px; /* Space between rows */
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             cursor: pointer;
+            break-inside: avoid; /* For masonry */
         }
 
         .work-image {
             width: 100%;
-            aspect-ratio: 1 / 1; /* PERFECT SQUARE */
-            background: #222;
-            overflow: hidden;
-            position: relative;
+            /* REMOVED aspect-ratio to allow natural height */
+            display: block;
         }
 
         .work-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            height: auto; /* Natural Height */
             display: block;
+            transition: opacity 0.3s ease;
         }
+        
+        .work-item:hover .work-image img { opacity: 0.8; }
 
-        .work-item:hover .work-image img { transform: scale(1.05); }
-
-        /* METADATA TYPOGRAPHY */
+        /* TYPOGRAPHY */
         .work-info { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
         .work-title { font-weight: 700; }
-        .work-meta { color: #666; display: flex; flex-wrap: wrap; gap: 8px; }
+        .work-meta { color: #666; }
         .work-date { color: #444; margin-top: 2px; }
 
         /* --- LIST VIEW OVERRIDES --- */
-        body.view-mode-list .grid-layout.works-container {
-            display: block; /* Remove column grid */
-        }
-
+        body.view-mode-list .grid-layout.works-container { display: block; }
+        
         body.view-mode-list .work-item {
             display: grid;
-            grid-template-columns: 2fr 3fr 2fr 1fr; /* Spreadsheet columns */
+            grid-template-columns: 2fr 3fr 2fr 1fr;
             border-top: 1px solid var(--line);
             padding: 15px 0;
             margin-bottom: 0;
@@ -148,48 +138,40 @@
         }
         
         body.view-mode-list .work-image { display: none; }
-        body.view-mode-list .work-info { display: contents; } /* Flatten hierarchy */
-        body.view-mode-list .work-meta, 
-        body.view-mode-list .work-date,
-        body.view-mode-list .work-title { display: block; margin: 0; }
-
+        body.view-mode-list .work-info { display: contents; }
         body.view-mode-list .work-title:hover { text-decoration: underline; color: var(--accent); }
 
-        /* HOVER PREVIEW */
+        /* PREVIEW */
         .hover-preview {
-            position: fixed; width: 280px; height: 280px;
-            top: 0; left: 0;
-            transform: translate(-50%, -50%) scale(0.9);
+            position: fixed; width: 280px; height: 350px; /* Portrait ratio */
+            top: 0; left: 0; transform: translate(-50%, -50%) scale(0.9);
             opacity: 0; pointer-events: none; z-index: 50;
             background-size: cover; background-position: center;
             transition: opacity 0.2s, transform 0.3s ease-out;
         }
         .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-        /* --- MOBILE --- */
+        /* MOBILE */
         @media (max-width: 768px) {
+            :root { --page-padding: 20px; --grid-gap: 20px; }
             .grid-layout { grid-template-columns: 1fr; }
             .header-right, .header-col:nth-child(2), .header-col:nth-child(3) { display: none; }
             .controls-box { width: 100%; }
-            header { padding-bottom: 10px; }
         }
     </style>
 </head>
 <body>
+<div class="site-wrapper">
 
     <header class="grid-layout">
         <div class="header-col">
             <div>MAYA METZGER</div>
             <div class="role">VISUAL DESIGNER & ART DIRECTOR</div>
         </div>
-        <div class="header-col">
-            <a href="#" class="header-link">INDEX</a>
-        </div>
-        <div class="header-col">
-            <a href="#" class="header-link">INFO</a>
-        </div>
+        <div class="header-col"><a href="#">INDEX</a></div>
+        <div class="header-col"><a href="#">INFO</a></div>
         <div class="header-col header-right">
-            <a href="#" class="header-link">CONTACT</a>
+            <a href="#">CONTACT</a>
             <button id="theme-toggle">LIGHT</button>
         </div>
     </header>
@@ -212,78 +194,93 @@
     <main id="works-container" class="grid-layout works-container">
         </main>
     
-    <div id="hover-preview" class="hover-preview"></div>
+</div> <div id="hover-preview" class="hover-preview"></div>
 
-    <script>
-        // DATA
-        const portfolioItems = [
-            { title: "JOE COFFEE", tags: "[INTERIOR] [GRAPHIC] [ART]", date: "04.2025", desc: "BREWED TO PERFECTION", img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop" },
-            { title: "ATLAS MOBILITY", tags: "[INTERIOR] [ART]", date: "06.2025", desc: "FUTURE-FORWARD URBAN TRANSIT", img: "https://images.unsplash.com/photo-1517420704952-d9f3971d7894?q=80&w=800&auto=format&fit=crop" },
-            { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop" },
-            { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "RETHINKING HOME & COMFORT", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop" },
-            { title: "ALBA CERAMICS", tags: "[GRAPHIC] [ART]", date: "09.2023", desc: "CRAFT MEETS CONTEMPORARY", img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" },
-            { title: "WAYPOINT TRAVEL", tags: "[INTERIOR]", date: "04.2023", desc: "SEAMLESS JOURNEYS", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop" },
-            { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" },
-            { title: "NOVA BIOTECH", tags: "[INTERIOR]", date: "05.2022", desc: "SHAPING THE FUTURE", img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=800&auto=format&fit=crop" }
-        ];
+<script>
+    // DATA (Using different aspect ratios to show off non-square)
+    const portfolioItems = [
+        { title: "JOE COFFEE", tags: "[INTERIOR]", date: "04.2025", desc: "BREWED TO PERFECTION", 
+          img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" }, // Portrait
+        
+        { title: "ATLAS MOBILITY", tags: "[TECH]", date: "06.2025", desc: "FUTURE TRANSIT", 
+          img: "https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=800&auto=format&fit=crop" }, // Landscape
+        
+        { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", 
+          img: "https://images.unsplash.com/photo-1576091160550-2187d80a58fd?q=80&w=800&auto=format&fit=crop" }, // Portrait
+        
+        { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "HOME & COMFORT", 
+          img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=800&auto=format&fit=crop" }, // Square-ish
+        
+        { title: "ALBA CERAMICS", tags: "[CRAFT]", date: "09.2023", desc: "CONTEMPORARY CRAFT", 
+          img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=800&auto=format&fit=crop" }, // Portrait
+        
+        { title: "WAYPOINT", tags: "[UX/UI]", date: "04.2023", desc: "SEAMLESS JOURNEYS", 
+          img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop" }, // Wide Landscape
+        
+        { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", 
+          img: "https://images.unsplash.com/photo-1559136555-930b730e8583?q=80&w=800&auto=format&fit=crop" }, // Portrait
+        
+        { title: "NOVA BIOTECH", tags: "[SCIENCE]", date: "05.2022", desc: "FUTURE WELLNESS", 
+          img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=800&auto=format&fit=crop" } // Landscape
+    ];
 
-        const container = document.getElementById('works-container');
-        const preview = document.getElementById('hover-preview');
+    const container = document.getElementById('works-container');
+    const preview = document.getElementById('hover-preview');
 
-        function render() {
-            container.innerHTML = '';
-            portfolioItems.forEach(item => {
-                const el = document.createElement('div');
-                el.className = 'work-item';
-                el.innerHTML = `
-                    <div class="work-image"><img src="${item.img}"></div>
-                    <div class="work-info">
-                        <div class="work-title">1 <br> ${item.title}</div>
-                        <div class="work-meta">${item.desc} <br> ${item.tags}</div>
-                        <div class="work-date">${item.date}</div>
-                    </div>
-                `;
-                
-                // Hover Interactions
-                el.addEventListener('mouseenter', () => {
-                    if(document.body.classList.contains('view-mode-list')) {
-                        preview.style.backgroundImage = `url(${item.img})`;
-                        preview.classList.add('active');
-                    }
-                });
-                el.addEventListener('mouseleave', () => preview.classList.remove('active'));
-                el.addEventListener('mousemove', (e) => {
-                    if(document.body.classList.contains('view-mode-list')) {
-                        preview.style.left = (e.clientX + 20) + 'px';
-                        preview.style.top = e.clientY + 'px';
-                    }
-                });
-
-                container.appendChild(el);
+    function render() {
+        container.innerHTML = '';
+        portfolioItems.forEach((item, index) => {
+            const el = document.createElement('div');
+            el.className = 'work-item';
+            el.innerHTML = `
+                <div class="work-image"><img src="${item.img}"></div>
+                <div class="work-info">
+                    <div class="work-title">${index + 1} <br> ${item.title}</div>
+                    <div class="work-meta">${item.desc} <br> ${item.tags}</div>
+                    <div class="work-date">${item.date}</div>
+                </div>
+            `;
+            
+            // Interactions
+            el.addEventListener('mouseenter', () => {
+                if(document.body.classList.contains('view-mode-list')) {
+                    preview.style.backgroundImage = `url(${item.img})`;
+                    preview.classList.add('active');
+                }
             });
-        }
+            el.addEventListener('mouseleave', () => preview.classList.remove('active'));
+            el.addEventListener('mousemove', (e) => {
+                if(document.body.classList.contains('view-mode-list')) {
+                    preview.style.left = (e.clientX + 20) + 'px';
+                    preview.style.top = e.clientY + 'px';
+                }
+            });
 
-        // Toggles
-        document.getElementById('btn-list').addEventListener('click', () => {
-            document.body.classList.add('view-mode-list');
-            document.getElementById('btn-list').innerText = "● LIST";
-            document.getElementById('btn-grid').innerText = "○ GRID";
+            container.appendChild(el);
         });
+    }
 
-        document.getElementById('btn-grid').addEventListener('click', () => {
-            document.body.classList.remove('view-mode-list');
-            document.getElementById('btn-list').innerText = "○ LIST";
-            document.getElementById('btn-grid').innerText = "● GRID";
-        });
+    // Logic
+    document.getElementById('btn-list').addEventListener('click', () => {
+        document.body.classList.add('view-mode-list');
+        document.getElementById('btn-list').innerText = "● LIST";
+        document.getElementById('btn-grid').innerText = "○ GRID";
+    });
 
-        document.getElementById('theme-toggle').addEventListener('click', (e) => {
-            const html = document.documentElement;
-            const isDark = html.getAttribute('data-theme') === 'dark';
-            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            e.target.innerText = isDark ? 'DARK' : 'LIGHT';
-        });
+    document.getElementById('btn-grid').addEventListener('click', () => {
+        document.body.classList.remove('view-mode-list');
+        document.getElementById('btn-list').innerText = "○ LIST";
+        document.getElementById('btn-grid').innerText = "● GRID";
+    });
 
-        render();
-    </script>
+    document.getElementById('theme-toggle').addEventListener('click', (e) => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        e.target.innerText = isDark ? 'DARK' : 'LIGHT';
+    });
+
+    render();
+</script>
 </body>
 </html>
