@@ -13,29 +13,24 @@ const portfolioItems = [
 const container = document.getElementById('works-container');
 const preview = document.getElementById('hover-preview');
 
-// --- RENDER FUNCTION (Now accepts a filter) ---
+// --- RENDER FUNCTION ---
 function render(filter = 'all') {
     container.innerHTML = '';
     
-    // 1. Filter the data
     const filteredItems = filter === 'all' 
         ? portfolioItems 
         : portfolioItems.filter(item => item.tags.toLowerCase().includes(filter));
 
-    // 2. If empty, show message
     if(filteredItems.length === 0) {
         container.innerHTML = '<div style="grid-column: span 4; opacity: 0.5;">NO PROJECTS FOUND IN THIS CATEGORY.</div>';
         return;
     }
 
-    // 3. Loop and Create
     filteredItems.forEach((item, index) => {
         const el = document.createElement('div');
         el.className = 'work-item';
-        
-        // Animation delay for smooth filtering
         el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
-        el.style.opacity = '0'; // Start hidden for animation
+        el.style.opacity = '0'; 
 
         el.innerHTML = `
             <div class="work-image">
@@ -52,7 +47,7 @@ function render(filter = 'all') {
             </div>
         `;
         
-        // Hover Events for List View Preview
+        // List Mode Hover
         el.addEventListener('mouseenter', () => {
             if(document.body.classList.contains('view-mode-list')) {
                 preview.style.backgroundImage = `url(${item.img})`;
@@ -71,21 +66,17 @@ function render(filter = 'all') {
     });
 }
 
-// --- FILTER LOGIC (The Catalog Function) ---
+// --- FILTER LOGIC ---
 const filterOptions = document.querySelectorAll('#filter-row .control-option');
-
 filterOptions.forEach(opt => {
     opt.addEventListener('click', () => {
         filterOptions.forEach(btn => {
             btn.classList.remove('active');
             btn.innerText = btn.innerText.replace('●', '○'); 
         });
-
         opt.classList.add('active');
         opt.innerText = opt.innerText.replace('○', '●');
-
-        const filterValue = opt.getAttribute('data-filter');
-        render(filterValue);
+        render(opt.getAttribute('data-filter'));
     });
 });
 
@@ -104,11 +95,10 @@ function setTheme(theme) {
         btnDark.classList.remove('active');
     }
 }
-
 btnLight.addEventListener('click', () => setTheme('light'));
 btnDark.addEventListener('click', () => setTheme('dark'));
 
-// --- VIEW LOGIC (Grid vs List) ---
+// --- VIEW LOGIC ---
 document.getElementById('btn-list').addEventListener('click', () => {
     document.body.classList.add('view-mode-list');
     document.getElementById('btn-list').innerText = "● LIST";
@@ -120,15 +110,25 @@ document.getElementById('btn-grid').addEventListener('click', () => {
     document.getElementById('btn-grid').innerText = "● GRID";
 });
 
-// Add a simple fade-in animation to CSS via JS
+// --- CLOCK LOGIC ---
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    
+    const timeString = `ZÜRICH, CH ${hours}:${minutes} ${ampm}`;
+    const clockEl = document.getElementById('live-clock');
+    if(clockEl) clockEl.innerText = timeString;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Init
 const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-`;
+styleSheet.innerText = `@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`;
 document.head.appendChild(styleSheet);
 
-// Initial Load
 render('all');
