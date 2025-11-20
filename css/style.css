@@ -80,12 +80,15 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 .control-option.active { opacity: 1; font-weight: 700; }
 .control-option:hover { opacity: 0.8; }
 
-/* --- WORKS --- */
+/* --- WORKS ITEMS & HOVER EFFECT --- */
 .work-item {
     margin-bottom: 80px;
-    display: flex; flex-direction: column;
+    display: flex; 
+    flex-direction: column;
     gap: 15px;
-    cursor: pointer; break-inside: avoid;
+    cursor: pointer; 
+    break-inside: avoid;
+    position: relative; /* Needed for absolute positioning of overlay */
 }
 
 .work-image { 
@@ -93,6 +96,7 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
     aspect-ratio: 4/5; 
     background-color: #1a1a1a; 
     overflow: hidden;
+    position: relative; /* For overlay positioning */
     display: block;
 }
 
@@ -104,7 +108,65 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
 }
 
-.work-item:hover .work-image img { opacity: 0.9; transform: scale(1.05); }
+/* --- THE HOVER OVERLAY --- */
+.image-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    z-index: 5;
+    pointer-events: none; /* Allows clicks to pass through initially */
+}
+
+.work-item:hover .image-overlay {
+    opacity: 1; /* Show on hover */
+    pointer-events: auto; /* Enable clicks on overlay elements */
+}
+
+/* --- SEE MORE BUTTON --- */
+.see-more-btn {
+    background: var(--text); /* Light text button */
+    color: var(--bg);       /* Dark text on button */
+    padding: 10px 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.see-more-btn:hover {
+    transform: translateY(-3px);
+    background-color: var(--accent); /* Slightly brighter on hover */
+}
+
+/* --- CIRCULAR BORDER --- */
+.circular-border {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8); /* Slightly smaller initially */
+    width: 80%; /* Adjust size as needed */
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--text); /* White border */
+    border-radius: 50%;
+    opacity: 0; /* Hidden by default */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+}
+
+.work-item:hover .circular-border {
+    opacity: 1; /* Show on hover */
+    transform: translate(-50%, -50%) scale(1); /* Expand to full size */
+}
+
+/* --- IMAGE ZOOM ON HOVER --- */
+.work-item:hover .work-image img { 
+    transform: scale(1.05); /* Subtle zoom for the image */
+}
+
 
 .work-info { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
 .work-title { font-weight: 700; }
@@ -117,7 +179,7 @@ body.view-mode-list .work-item {
     display: grid; grid-template-columns: 2fr 3fr 2fr 1fr;
     border-top: 1px solid var(--line); padding: 15px 0; margin-bottom: 0; align-items: center;
 }
-body.view-mode-list .work-image { display: none; }
+body.view-mode-list .work-image { display: none; } /* Hide image in list view */
 body.view-mode-list .work-info { display: contents; }
 body.view-mode-list .work-title:hover { text-decoration: underline; color: var(--accent); }
 
