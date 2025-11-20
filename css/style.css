@@ -1,6 +1,4 @@
-/* =========================================
-   1. VARIABLES & RESET
-   ========================================= */
+/* 1. VARS & RESET */
 :root {
     --bg: #0a0a0a;
     --text: #e0e0e0;
@@ -8,10 +6,8 @@
     --accent: #ffffff;
     --hover-bg: #1a1a1a;
     --footer-bg: #141414; 
-    
     --font-mono: 'Space Mono', monospace;
-    
-    --page-padding: 60px; 
+    --page-padding: 60px;
     --grid-gap: 16px; 
     --max-width: 1800px;
 }
@@ -40,12 +36,9 @@ body {
 }
 
 .site-wrapper { max-width: var(--max-width); margin: 0 auto; }
-
 a { text-decoration: none; color: inherit; cursor: pointer; }
 
-/* =========================================
-   2. GLOBAL GRID SYSTEM
-   ========================================= */
+/* 2. GRID */
 .grid-layout {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr; 
@@ -53,39 +46,19 @@ a { text-decoration: none; color: inherit; cursor: pointer; }
     width: 100%;
 }
 
-/* =========================================
-   3. HEADER
-   ========================================= */
-header { 
-    margin-bottom: 20px; 
-    position: relative; 
-    z-index: 100; 
-}
-
+/* 3. HEADER */
+header { margin-bottom: 20px; position: relative; z-index: 100; }
 .header-col { display: flex; flex-direction: column; gap: 5px; }
 .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
-
-.header-right { 
-    display: flex !important; 
-    flex-direction: row !important; 
-    justify-content: space-between; 
-    align-items: flex-start; 
-    width: 100%;
-}
+.header-right { display: flex !important; flex-direction: row !important; justify-content: space-between; width: 100%; }
 
 .theme-switcher { display: flex; gap: 15px; }
-.theme-opt { cursor: pointer; opacity: 0.3; transition: opacity 0.3s ease; }
+.theme-opt { cursor: pointer; opacity: 0.3; transition: 0.3s; }
 .theme-opt:hover { opacity: 0.6; }
 .theme-opt.active { opacity: 1; font-weight: 700; }
 
-/* =========================================
-   4. LANDING PAGE CONTROLS
-   ========================================= */
-.controls-wrapper { 
-    margin-bottom: 20px; 
-    grid-column: 1 / -1; 
-}
-
+/* 4. CONTROLS */
+.controls-wrapper { margin-bottom: 20px; grid-column: 1 / -1; }
 .controls-box {
     background: var(--hover-bg);
     display: inline-flex;
@@ -97,89 +70,47 @@ header {
 .control-row { display: flex; gap: 15px; }
 .control-option { opacity: 0.4; cursor: pointer; transition: 0.2s; }
 .control-option.active { opacity: 1; font-weight: 700; }
-.control-option:hover { opacity: 0.8; }
 
-/* =========================================
-   5. LANDING PAGE WORKS GRID
-   ========================================= */
-.work-item {
-    /* FIXED: Reduced row spacing for a cozier look */
-    margin-bottom: 40px; /* Was 80px */
-    
-    display: block; 
-    cursor: pointer; 
-    break-inside: avoid;
-    position: relative;
-}
+/* 5. WORKS GRID (Home) */
+.work-item { margin-bottom: 40px; display: block; cursor: pointer; position: relative; }
 
 .work-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex; 
-    flex-direction: column;
-    gap: 24px; 
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 24px; 
 }
 
 .work-image { 
-    width: 100%; 
-    aspect-ratio: 4/5; 
-    background-color: #1a1a1a; 
-    overflow: hidden;
-    position: relative; 
-    display: block;
+    width: 100%; aspect-ratio: 4/5; 
+    background-color: #1a1a1a; overflow: hidden; position: relative; display: block;
 }
-
 .work-image img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    display: block; 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
 }
 
-/* Hover Overlay */
 .image-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 5;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s; z-index: 5;
 }
-
 .work-item:hover .image-overlay { opacity: 1; }
 
 .see-more-btn {
-    background: var(--text);
-    color: var(--bg);
-    padding: 10px 20px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.3s ease;
+    background: var(--text); color: var(--bg); padding: 10px 20px;
+    font-weight: 700; display: flex; align-items: center; gap: 10px;
+    transition: transform 0.3s;
 }
 .see-more-btn:hover { transform: translateY(-3px); }
 
 .circular-border {
-    position: absolute;
-    top: 50%; left: 50%;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    width: 90%;
-    aspect-ratio: 1 / 1;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
-    opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+    width: 90%; aspect-ratio: 1 / 1;
+    border: 1px solid rgba(255,255,255,0.5); border-radius: 50%;
+    opacity: 0; transition: transform 0.5s, opacity 0.3s;
 }
-
-.work-item:hover .circular-border {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-}
+.work-item:hover .circular-border { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .work-item:hover .work-image img { transform: scale(1.05); }
 
 .work-info { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
@@ -187,92 +118,40 @@ header {
 .work-meta { color: #666; }
 .work-date { color: #444; margin-top: 2px; }
 
-/* =========================================
-   6. PROJECT DETAIL PAGE STYLES
-   ========================================= */
-.project-layout {
-    margin-top: 40px;
-    margin-bottom: 100px;
-    grid-row-gap: 80px;
-}
-
-.project-meta-col {
-    grid-column: 1 / 2;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+/* 6. PROJECT DETAIL PAGE */
+.project-layout { margin-top: 40px; margin-bottom: 100px; grid-row-gap: 80px; }
+.project-meta-col { grid-column: 1 / 2; display: flex; flex-direction: column; gap: 20px; }
 .meta-row { display: flex; flex-direction: column; gap: 5px; }
 .meta-label { color: #666; font-size: 10px; }
 .meta-value { color: var(--text); font-weight: 700; }
 
-.project-spacer { grid-column: 2 / 3; }
+.project-description-col { grid-column: 3 / 5; }
+.project-description-col p { font-size: 14px; line-height: 1.6; text-transform: uppercase; }
 
-.project-description-col {
-    grid-column: 3 / 5; 
-}
-.project-description-col p {
-    font-size: 14px;
-    line-height: 1.6;
-    text-transform: uppercase;
-}
+.project-gallery { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+.project-gallery img { width: 100%; height: auto; display: block; margin-bottom: 0; }
 
-.project-gallery {
-    grid-column: 1 / -1; 
-    display: flex;
-    flex-direction: column;
-    gap: 0; 
-    margin-top: 20px;
-}
-.project-gallery img {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: 0;
-}
-
-/* =========================================
-   7. FOOTER
-   ========================================= */
+/* 7. FOOTER */
 footer {
-    margin-top: 80px;
-    background-color: var(--footer-bg); 
-    padding: 40px; 
-    min-height: 250px;
-    transition: background-color 0.3s ease;
+    margin-top: 80px; background-color: var(--footer-bg); 
+    padding: 40px; min-height: 250px; transition: background-color 0.3s;
 }
-
-.footer-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 30px;
-}
-
+.footer-col { display: flex; flex-direction: column; justify-content: space-between; gap: 30px; }
 .col-left .copyright { color: #666; margin-top: auto; }
-
-.col-middle {
-    grid-column: span 2;
-    padding-right: 10%;
-}
-
+.col-middle { grid-column: span 2; padding-right: 10%; }
 .footer-bio { max-width: 400px; line-height: 1.6; color: var(--text); }
-
 .footer-links { display: flex; gap: 60px; margin-top: 40px; }
 .link-column { display: flex; flex-direction: column; gap: 10px; }
 .link-column a { opacity: 0.6; transition: opacity 0.2s; }
 .link-column a:hover { opacity: 1; }
-
 .col-right { align-items: flex-end; text-align: right; }
 .col-right .credits { color: #666; }
 
-/* =========================================
-   8. LIST MODE OVERRIDES
-   ========================================= */
+/* 8. LIST MODE */
 body.view-mode-list .grid-layout.works-container { display: block; }
 body.view-mode-list .work-item {
     display: grid; grid-template-columns: 2fr 3fr 2fr 1fr;
-    border-top: 1px solid var(--line); padding: 15px 0; margin-bottom: 0; align-items: center;
+    border-top: 1px solid var(--line); padding: 15px 0; align-items: center;
 }
 body.view-mode-list .work-link { display: contents; } 
 body.view-mode-list .work-image { display: none; }
@@ -284,27 +163,33 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     top: 0; left: 0; transform: translate(-50%, -50%) scale(0.9);
     opacity: 0; pointer-events: none; z-index: 50;
     background-size: cover; background-position: center;
-    transition: opacity 0.2s, transform 0.3s ease-out;
+    transition: opacity 0.2s;
 }
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-/* =========================================
-   9. MOBILE RESPONSIVE (LEFT ALIGN FIX)
-   ========================================= */
-@media (max-width: 768px) {
-    :root { 
-        --page-padding: 20px; 
-        --grid-gap: 12px; 
-    }
+/* 9. INFO PAGE STYLES */
+.info-layout { margin-top: 60px; margin-bottom: 100px; row-gap: 60px; }
+.info-label { grid-column: 1 / 2; color: #666; font-size: 11px; }
+.info-text { grid-column: 2 / 3; line-height: 1.6; color: var(--text); margin-bottom: 0; }
+.info-layout > .info-text:first-of-type { grid-column: 2 / 4; }
+.info-spacer { display: contents; }
+.info-image-container { grid-column: 4 / 5; grid-row: 2 / 5; }
+.info-image-container img { width: 100%; height: auto; display: block; filter: grayscale(100%); }
 
-    /* --- HEADER --- */
-    header.grid-layout {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        gap: 5px;
-        margin-bottom: 20px;
-    }
+/* 10. CONTACT PAGE STYLES */
+.contact-layout { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--page-padding); }
+.contact-container { max-width: 1000px; }
+.contact-label { color: #666; margin-bottom: 20px; }
+.big-contact-link { font-size: 6vw; font-weight: 700; line-height: 1; text-decoration: none; color: var(--text); border-bottom: 2px solid transparent; transition: border-color 0.3s; }
+.big-contact-link:hover { border-bottom-color: var(--accent); }
+.contact-socials { margin-top: 60px; display: flex; gap: 40px; font-size: 14px; }
+.contact-socials a:hover { color: var(--accent); text-decoration: underline; }
+
+/* 11. MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    :root { --page-padding: 20px; --grid-gap: 12px; }
+
+    header.grid-layout { display: flex; flex-direction: column; position: relative; gap: 5px; margin-bottom: 20px; }
     .header-col:first-child { display: contents; }
     .header-col:first-child > div:first-child { order: 1; margin-bottom: 5px; }
     .header-col:nth-child(2) { order: 2; }
@@ -313,84 +198,29 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .theme-switcher { position: absolute; top: 0; right: 0; }
     .role { order: 5; margin-top: 15px; margin-bottom: 10px; display: block; max-width: 150px; line-height: 1.4; }
 
-    /* --- CONTROLS & GRID --- */
     .controls-wrapper { margin-bottom: 30px; }
     .controls-box { width: 100%; }
-    
-    .grid-layout.works-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        row-gap: 20px;
-    }
+
+    .grid-layout.works-container { display: grid; grid-template-columns: 1fr 1fr; row-gap: 20px; }
     .work-item { margin-bottom: 0; }
-
-    /* --- FOOTER FIX --- */
-    footer.grid-layout {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; /* THIS FORCES EVERYTHING LEFT */
-        margin-top: 60px;
-        padding: 20px;
-        text-align: left;
-    }
-
-    /* Unwrap columns */
+    
+    footer.grid-layout { display: flex; flex-direction: column; align-items: flex-start; margin-top: 60px; padding: 20px; text-align: left; }
     .footer-col { display: contents; }
-
-    /* 1. Brand */
-    .footer-brand { 
-        order: 1; 
-        margin-bottom: 40px; 
-        font-weight: 700;
-        text-align: left;
-    }
-
-    /* 2. Bio */
-    .footer-bio { 
-        order: 2; 
-        margin-bottom: 40px; 
-        max-width: 100%;
-        text-align: left;
-    }
-
-    /* 3. Links */
-    .footer-links { 
-        order: 3; 
-        flex-direction: column; 
-        gap: 10px; 
-        margin-top: 0;
-        margin-bottom: 40px; 
-        align-items: flex-start; /* Ensure links align left */
-    }
+    .footer-brand { order: 1; margin-bottom: 40px; font-weight: 700; text-align: left; }
+    .footer-bio { order: 2; margin-bottom: 40px; max-width: 100%; text-align: left; }
+    .footer-links { order: 3; flex-direction: column; gap: 10px; margin-top: 0; margin-bottom: 40px; align-items: flex-start; }
     .link-column { gap: 10px; }
+    #live-clock { order: 4; margin-bottom: 5px; text-align: left !important; align-self: flex-start; }
+    .copyright { order: 5; margin-top: 0; margin-bottom: 5px; color: #888; text-align: left !important; align-self: flex-start; }
+    .credits { order: 6; color: #888; text-align: left !important; align-self: flex-start; }
 
-    /* 4. Clock - Explicit Left Align */
-    #live-clock {
-        order: 4;
-        margin-bottom: 5px;
-        text-align: left !important;
-        align-self: flex-start;
-    }
-
-    /* 5. Copyright - Explicit Left Align */
-    .copyright { 
-        order: 5; 
-        margin-top: 0; 
-        margin-bottom: 5px;
-        color: #888;
-        text-align: left !important;
-        align-self: flex-start;
-    }
-
-    /* 6. Credits - Explicit Left Align */
-    .credits {
-        order: 6;
-        color: #888;
-        text-align: left !important;
-        align-self: flex-start;
-    }
-
-    /* --- PROJECT PAGE --- */
     .project-layout { display: flex; flex-direction: column; gap: 40px; }
     .project-description-col { font-size: 12px; }
+
+    .info-layout { display: flex; flex-direction: column; gap: 40px; }
+    .info-text { width: 100%; }
+    .info-image-container { order: -1; margin-bottom: 40px; }
+
+    .big-contact-link { font-size: 12vw; }
+    .contact-socials { flex-direction: column; gap: 20px; }
 }
