@@ -7,14 +7,15 @@
     --line: #333333;
     --accent: #ffffff;
     --hover-bg: #1a1a1a;
-    
-    /* Footer Background */
     --footer-bg: #141414; 
     
     --font-mono: 'Space Mono', monospace;
     
     --page-padding: 60px;
-    --grid-gap: 40px;
+    
+    /* UPDATED: Smaller gap between columns */
+    --grid-gap: 16px; 
+    
     --max-width: 1800px;
 }
 
@@ -63,7 +64,6 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 .header-col { display: flex; flex-direction: column; gap: 5px; }
 .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
 
-/* Header Right (Contact + Theme) */
 .header-right { 
     display: flex !important; 
     flex-direction: row !important; 
@@ -95,13 +95,16 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 .control-option:hover { opacity: 0.8; }
 
 /* =========================================
-   5. LANDING PAGE WORKS GRID (The Cards)
+   5. LANDING PAGE WORKS GRID
    ========================================= */
 .work-item {
     margin-bottom: 80px;
     display: flex; 
     flex-direction: column;
-    gap: 15px;
+    
+    /* UPDATED: Increased gap between image and text */
+    gap: 24px; 
+    
     cursor: pointer; 
     break-inside: avoid;
     position: relative;
@@ -183,7 +186,7 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 .work-date { color: #444; margin-top: 2px; }
 
 /* =========================================
-   6. PROJECT DETAIL PAGE STYLES (NEW)
+   6. PROJECT DETAIL PAGE STYLES
    ========================================= */
 .project-layout {
     margin-top: 40px;
@@ -191,7 +194,6 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
     grid-row-gap: 80px;
 }
 
-/* Meta Column (Left) */
 .project-meta-col {
     grid-column: 1 / 2;
     display: flex;
@@ -202,10 +204,8 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 .meta-label { color: #666; font-size: 10px; }
 .meta-value { color: var(--text); font-weight: 700; }
 
-/* Spacer */
 .project-spacer { grid-column: 2 / 3; }
 
-/* Description Column (Right) */
 .project-description-col {
     grid-column: 3 / 5; 
 }
@@ -215,7 +215,6 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
     text-transform: uppercase;
 }
 
-/* Gallery (Stacked Images) */
 .project-gallery {
     grid-column: 1 / -1; 
     display: flex;
@@ -277,7 +276,6 @@ body.view-mode-list .work-image { display: none; }
 body.view-mode-list .work-info { display: contents; }
 body.view-mode-list .work-title:hover { text-decoration: underline; color: var(--accent); }
 
-/* List Hover Preview */
 .hover-preview {
     position: fixed; width: 280px; height: 350px;
     top: 0; left: 0; transform: translate(-50%, -50%) scale(0.9);
@@ -302,7 +300,6 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .col-right { align-items: flex-start; text-align: left; }
     .copyright { order: 10; }
 
-    /* Project Page Mobile */
     .project-layout { display: flex; flex-direction: column; gap: 40px; }
     .project-description-col { font-size: 12px; }
 }
