@@ -1,107 +1,74 @@
-// --- CONFIGURATION ---
-// API Note: '_embed' is REQUIRED to get the featured image
-const WP_API_ROOT = 'https://techcrunch.com/wp-json/wp/v2'; 
+// Configuration
+const WP_API = 'https://techcrunch.com/wp-json/wp/v2/posts?per_page=6&_embed'; 
+const gridContainer = document.getElementById('project-grid');
+const timeDisplay = document.getElementById('time-display');
 
-// --- 1. NAVIGATION SYSTEM ---
-function switchPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    // Show selected page
-    document.getElementById(pageId).classList.add('active');
-}
-
-// --- 2. MOUSE FOLLOWER & HOVER REVEAL ---
-const cursor = document.querySelector('.cursor');
-const follower = document.querySelector('.cursor-follower');
-const revealImg = document.getElementById('hover-image');
-
-let mouseX = 0, mouseY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // Move small cursor instantly
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
-
-    // Move Reveal Image with cursor
-    revealImg.style.left = mouseX + 'px';
-    revealImg.style.top = mouseY + 'px';
-});
-
-// Smooth follower delay
-setInterval(() => {
-    const currentX = parseFloat(follower.style.left || 0);
-    const currentY = parseFloat(follower.style.top || 0);
-    
-    follower.style.left = currentX + (mouseX - currentX) * 0.1 + 'px';
-    follower.style.top = currentY + (mouseY - currentY) * 0.1 + 'px';
-}, 10);
-
-
-// --- 3. DATA FETCHING (WORKS & BLOG) ---
-
-async function fetchData(type, containerId) {
-    const container = document.getElementById(containerId);
-    // Fetch posts with embedded media (images)
-    const url = `${WP_API_ROOT}/${type}?per_page=5&_embed`;
-
+// 1. Fetch and Build Grid
+async function loadGrid() {
     try {
-        const res = await fetch(url);
-        const data = await res.json();
-        container.innerHTML = ''; // Clear loading text
+        const res = await fetch(WP_API);
+        const posts = await res.json();
+        
+        gridContainer.innerHTML = ''; // Clear loading
 
-        data.forEach(item => {
-            // Safely try to get the image URL
-            let imgUrl = '';
-            if (item._embedded && item._embedded['wp:featuredmedia']) {
-                imgUrl = item._embedded['wp:featuredmedia'][0].source_url;
+        posts.forEach((post, index) => {
+            // Get Data
+            const title = post.title.rendered;
+            const link = post.link;
+            const date = new Date(post.date).getFullYear();
+            
+            // Try to find an image, fallback if none
+            let imgUrl = 'https://via.placeholder.com/600x800/222/fff?text=No+Image';
+            if (post._embedded && post._embedded['wp:featuredmedia']) {
+                imgUrl = post._embedded['wp:featuredmedia'][0].source_url;
             }
 
-            const date = new Date(item.date).getFullYear();
-
-            // Create HTML
-            const el = document.createElement('a');
-            el.className = 'list-item';
-            el.href = item.link;
-            el.target = '_blank';
-            el.innerHTML = `
-                <div class="item-title">${item.title.rendered}</div>
-                <div class="item-meta">${type === 'posts' ? 'Article' : 'Project'} — ${date}</div>
+            // Create the HTML Card
+            const card = document.createElement('a');
+            card.href = link;
+            card.target = "_blank";
+            card.className = 'project-card';
+            card.innerHTML = `
+                <div class="card-image">
+                    <img src="${imgUrl}" alt="${title}">
+                </div>
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">${title}</div>
+                        <div class="card-category">Design / Concept</div>
+                    </div>
+                    <div class="card-date">${date}</div>
+                </div>
             `;
-
-            // ADD HOVER EFFECT
-            // When entering this item, set the reveal image source and show it
-            el.addEventListener('mouseenter', () => {
-                if (imgUrl) {
-                    revealImg.style.backgroundImage = `url(${imgUrl})`;
-                    revealImg.classList.add('active');
-                    follower.style.opacity = '0'; // Hide circle when image shows
-                }
-            });
-
-            // When leaving, hide the image
-            el.addEventListener('mouseleave', () => {
-                revealImg.classList.remove('active');
-                follower.style.opacity = '1';
-            });
-
-            container.appendChild(el);
+            
+            gridContainer.appendChild(card);
         });
 
     } catch (error) {
-        container.innerHTML = 'Error loading content.';
+        gridContainer.innerHTML = '<p>Error loading projects.</p>';
         console.error(error);
     }
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // "posts" is standard for Blog, usually you make a custom type for "projects"
-    // For this demo we fetch "posts" for both, but you can change one to "projects"
-    fetchData('posts', 'project-list'); 
-    fetchData('posts', 'blog-list');
+// 2. Time Display (Like Metzger Footer)
+function updateTime() {
+    const now = new Date();
+    timeDisplay.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// 3. Simple Filter Logic (Visual only for demo)
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Remove active class from all
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        // Add to clicked
+        this.classList.add('active');
+        
+        // Optional: You can add logic here to hide/show cards based on tags later
+    });
 });
+
+// Init
+loadGrid();
+setInterval(updateTime, 1000);
+updateTime();
