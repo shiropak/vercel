@@ -7,18 +7,18 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS STYLES --- */
         :root {
             --bg: #0a0a0a;
             --text: #e0e0e0;
             --line: #333333;
             --accent: #ffffff;
             --hover-bg: #1a1a1a;
-            --font-main: 'Inter', sans-serif;
             --font-mono: 'Space Mono', monospace;
+            --padding: 40px; /* Consistent padding around the screen */
+            --gap: 20px;      /* Consistent gap between items */
         }
 
         [data-theme="light"] {
@@ -35,204 +35,225 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 11px; /* Exact small tech size */
             text-transform: uppercase;
-            transition: background 0.3s, color 0.3s;
+            letter-spacing: 0.5px;
+            overflow-x: hidden;
         }
 
         a { text-decoration: none; color: inherit; cursor: pointer; }
-        button { background: none; border: none; color: inherit; font-family: inherit; cursor: pointer; text-transform: uppercase; font-size: 12px;}
+        button { background: none; border: none; color: inherit; font-family: inherit; cursor: pointer; text-transform: uppercase; font-size: 11px;}
 
-        /* NAV */
-        .top-bar {
-            display: flex; justify-content: space-between; padding: 20px;
-            position: sticky; top: 0; background: var(--bg); z-index: 100;
-        }
-        .nav-left { display: flex; flex-direction: column; gap: 4px; }
-        .brand { font-weight: 700; letter-spacing: 1px; }
-        .role { color: #666; }
-        .nav-right { display: flex; gap: 30px; }
-
-        /* CONTROLS */
-        .controls-bar { padding: 0 20px 40px 20px; display: flex; flex-direction: column; gap: 10px; }
-        .radio-group { display: inline-flex; gap: 20px; background: var(--hover-bg); padding: 10px 15px; width: fit-content; }
-        
-        /* TOGGLES */
-        input[type="radio"] { display: none; }
-        .toggle-label { cursor: pointer; opacity: 0.5; transition: 0.2s; }
-        input:checked + .toggle-label, .filter-btn.active { opacity: 1; font-weight: 700; }
-        
-        /* GRID LAYOUT */
-        .works-grid {
+        /* --- THE UNIFIED GRID SYSTEM --- */
+        /* This locks Header and Content to the same 4 columns */
+        .grid-layout {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 0 20px 100px 20px;
-            min-height: 50vh; /* Ensure visible height */
+            grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 Equal Columns */
+            column-gap: var(--gap);
+            padding: 0 var(--padding);
+            width: 100%;
         }
 
-        .work-item { display: flex; flex-direction: column; gap: 10px; cursor: pointer; }
-        .work-image { width: 100%; aspect-ratio: 1/1; background: #222; overflow: hidden; }
-        .work-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        /* --- HEADER --- */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .header-col { display: flex; flex-direction: column; gap: 5px; }
+        .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
+        
+        /* Aligning the header links to match the columns */
+        .header-link { display: block; }
+        
+        .header-right {
+            display: flex;
+            justify-content: space-between; /* Pushes Theme Toggle to far right */
+        }
+
+        /* --- CONTROLS (Floating Box) --- */
+        .controls-wrapper {
+            padding: 0 var(--padding);
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+        
+        .controls-box {
+            background: var(--hover-bg);
+            display: inline-flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px 16px;
+            min-width: 240px;
+        }
+
+        .control-row { display: flex; gap: 15px; }
+        .control-option { opacity: 0.4; cursor: pointer; transition: 0.2s; }
+        .control-option.active { opacity: 1; font-weight: 700; }
+        .control-option:hover { opacity: 0.8; }
+
+        /* --- WORKS GRID --- */
+        .works-container {
+            padding-bottom: 100px;
+        }
+
+        .work-item {
+            margin-bottom: 40px; /* Space between rows */
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .work-image {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* PERFECT SQUARE */
+            background: #222;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .work-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            display: block;
+        }
+
         .work-item:hover .work-image img { transform: scale(1.05); }
-        .work-info { display: flex; flex-direction: column; gap: 4px; font-size: 11px; line-height: 1.4; }
-        .meta-row { display: flex; justify-content: space-between; color: #666; }
 
-        /* LIST LAYOUT */
-        .view-list .works-grid { display: block; }
-        .view-list .work-item { 
-            display: grid; grid-template-columns: 2fr 3fr 2fr 1fr; 
-            border-top: 1px solid var(--line); padding: 15px 0; align-items: center; 
+        /* METADATA TYPOGRAPHY */
+        .work-info { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
+        .work-title { font-weight: 700; }
+        .work-meta { color: #666; display: flex; flex-wrap: wrap; gap: 8px; }
+        .work-date { color: #444; margin-top: 2px; }
+
+        /* --- LIST VIEW OVERRIDES --- */
+        body.view-mode-list .grid-layout.works-container {
+            display: block; /* Remove column grid */
         }
-        .view-list .work-image { display: none; }
-        .view-list .work-info { display: contents; }
-        .view-list .meta-row { display: contents; }
-        .view-list .work-title { color: var(--text); }
-        .view-list .work-item:hover .work-title { color: var(--accent); text-decoration: underline; }
+
+        body.view-mode-list .work-item {
+            display: grid;
+            grid-template-columns: 2fr 3fr 2fr 1fr; /* Spreadsheet columns */
+            border-top: 1px solid var(--line);
+            padding: 15px 0;
+            margin-bottom: 0;
+            align-items: center;
+        }
+        
+        body.view-mode-list .work-image { display: none; }
+        body.view-mode-list .work-info { display: contents; } /* Flatten hierarchy */
+        body.view-mode-list .work-meta, 
+        body.view-mode-list .work-date,
+        body.view-mode-list .work-title { display: block; margin: 0; }
+
+        body.view-mode-list .work-title:hover { text-decoration: underline; color: var(--accent); }
 
         /* HOVER PREVIEW */
         .hover-preview {
-            position: fixed; width: 300px; height: 300px;
-            top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
+            position: fixed; width: 280px; height: 280px;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%) scale(0.9);
             opacity: 0; pointer-events: none; z-index: 50;
             background-size: cover; background-position: center;
-            transition: opacity 0.2s, transform 0.2s;
+            transition: opacity 0.2s, transform 0.3s ease-out;
         }
         .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-        /* FOOTER */
-        footer { padding: 40px 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; color: #666; font-size: 11px; }
-
-        /* MOBILE */
+        /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .works-grid { grid-template-columns: 1fr; }
-            .view-list .work-item { grid-template-columns: 1fr; gap: 5px; }
-            .nav-right { display: none; }
+            .grid-layout { grid-template-columns: 1fr; }
+            .header-right, .header-col:nth-child(2), .header-col:nth-child(3) { display: none; }
+            .controls-box { width: 100%; }
+            header { padding-bottom: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="top-bar">
-        <div class="nav-left">
-            <div class="brand">MAYA METZGER</div>
+    <header class="grid-layout">
+        <div class="header-col">
+            <div>MAYA METZGER</div>
             <div class="role">VISUAL DESIGNER & ART DIRECTOR</div>
         </div>
-        <div class="nav-right">
-            <a href="#index">INDEX</a>
-            <a href="#info">INFO</a>
-            <a href="#contact">CONTACT</a>
+        <div class="header-col">
+            <a href="#" class="header-link">INDEX</a>
+        </div>
+        <div class="header-col">
+            <a href="#" class="header-link">INFO</a>
+        </div>
+        <div class="header-col header-right">
+            <a href="#" class="header-link">CONTACT</a>
             <button id="theme-toggle">LIGHT</button>
         </div>
-    </nav>
+    </header>
 
-    <div class="controls-bar">
-        <div class="view-toggles">
-            <div class="radio-group">
-                <input type="radio" id="view-grid" name="view" checked>
-                <label for="view-grid" class="toggle-label">● GRID</label>
-                
-                <input type="radio" id="view-list" name="view">
-                <label for="view-list" class="toggle-label">○ LIST</label>
+    <div class="controls-wrapper">
+        <div class="controls-box">
+            <div class="control-row">
+                <span class="control-option active" id="btn-grid">● GRID</span>
+                <span class="control-option" id="btn-list">○ LIST</span>
+            </div>
+            <div class="control-row">
+                <span class="control-option active">● ALL</span>
+                <span class="control-option">○ GRAPHIC</span>
+                <span class="control-option">○ ART</span>
+                <span class="control-option">○ INTERIOR</span>
             </div>
         </div>
     </div>
 
-    <main>
-        <div id="works-container" class="works-grid">
-            <div style="grid-column: span 4; padding: 20px; border: 1px solid red; color: red;">
-                JAVASCRIPT IS NOT RUNNING. PLEASE CHECK CONSOLE.
-            </div>
-        </div>
-    </main>
+    <main id="works-container" class="grid-layout works-container">
+        </main>
     
     <div id="hover-preview" class="hover-preview"></div>
 
-    <footer>
-        <div>© COPYRIGHT 2025</div>
-        <div id="clock">00:00 PM</div>
-    </footer>
-
     <script>
-        // 1. MANUAL DATA (Images guaranteed to load)
+        // DATA
         const portfolioItems = [
-            {
-                title: "JOE COFFEE", category: "[INTERIOR]", date: "04.2025",
-                desc: "BREWED TO PERFECTION",
-                image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "ATLAS MOBILITY", category: "[TECH]", date: "06.2025",
-                desc: "FUTURE-FORWARD URBAN TRANSIT",
-                image: "https://images.unsplash.com/photo-1517420704952-d9f3971d7894?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "LUMINA HEALTH", category: "[GRAPHIC]", date: "08.2024",
-                desc: "CLARITY IN CARE",
-                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "NESTWELL", category: "[ART]", date: "02.2024",
-                desc: "RETHINKING HOME & COMFORT",
-                image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "ALBA CERAMICS", category: "[CRAFT]", date: "09.2023",
-                desc: "CRAFT MEETS CONTEMPORARY",
-                image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "WAYPOINT", category: "[UX/UI]", date: "04.2023",
-                desc: "SEAMLESS JOURNEYS",
-                image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "HARBOR CO", category: "[GRAPHIC]", date: "02.2023",
-                desc: "MODERN TRADITION",
-                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop"
-            },
-            {
-                title: "NOVA BIOTECH", category: "[SCIENCE]", date: "05.2022",
-                desc: "SHAPING THE FUTURE",
-                image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=800&auto=format&fit=crop"
-            }
+            { title: "JOE COFFEE", tags: "[INTERIOR] [GRAPHIC] [ART]", date: "04.2025", desc: "BREWED TO PERFECTION", img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop" },
+            { title: "ATLAS MOBILITY", tags: "[INTERIOR] [ART]", date: "06.2025", desc: "FUTURE-FORWARD URBAN TRANSIT", img: "https://images.unsplash.com/photo-1517420704952-d9f3971d7894?q=80&w=800&auto=format&fit=crop" },
+            { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop" },
+            { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "RETHINKING HOME & COMFORT", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop" },
+            { title: "ALBA CERAMICS", tags: "[GRAPHIC] [ART]", date: "09.2023", desc: "CRAFT MEETS CONTEMPORARY", img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" },
+            { title: "WAYPOINT TRAVEL", tags: "[INTERIOR]", date: "04.2023", desc: "SEAMLESS JOURNEYS", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop" },
+            { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" },
+            { title: "NOVA BIOTECH", tags: "[INTERIOR]", date: "05.2022", desc: "SHAPING THE FUTURE", img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=800&auto=format&fit=crop" }
         ];
 
-        // 2. ELEMENTS
         const container = document.getElementById('works-container');
         const preview = document.getElementById('hover-preview');
-        const main = document.querySelector('main');
 
-        // 3. RENDER FUNCTION
         function render() {
-            container.innerHTML = ''; // Clear debug message
-            
+            container.innerHTML = '';
             portfolioItems.forEach(item => {
                 const el = document.createElement('div');
                 el.className = 'work-item';
-                
                 el.innerHTML = `
-                    <div class="work-image"><img src="${item.image}"></div>
+                    <div class="work-image"><img src="${item.img}"></div>
                     <div class="work-info">
-                        <div class="work-title">${item.title}</div>
-                        <div class="work-desc">${item.desc}</div>
-                        <div class="meta-row">
-                            <span class="work-cats">${item.category}</span>
-                            <span class="work-date">${item.date}</span>
-                        </div>
+                        <div class="work-title">1 <br> ${item.title}</div>
+                        <div class="work-meta">${item.desc} <br> ${item.tags}</div>
+                        <div class="work-date">${item.date}</div>
                     </div>
                 `;
-
-                // Hover Events
+                
+                // Hover Interactions
                 el.addEventListener('mouseenter', () => {
-                    if(main.classList.contains('view-list')) {
-                        preview.style.backgroundImage = `url(${item.image})`;
+                    if(document.body.classList.contains('view-mode-list')) {
+                        preview.style.backgroundImage = `url(${item.img})`;
                         preview.classList.add('active');
                     }
                 });
                 el.addEventListener('mouseleave', () => preview.classList.remove('active'));
                 el.addEventListener('mousemove', (e) => {
-                    if(main.classList.contains('view-list')) {
+                    if(document.body.classList.contains('view-mode-list')) {
                         preview.style.left = (e.clientX + 20) + 'px';
                         preview.style.top = e.clientY + 'px';
                     }
@@ -242,23 +263,26 @@
             });
         }
 
-        // 4. TOGGLES
-        document.getElementById('view-grid').addEventListener('change', () => main.classList.remove('view-list'));
-        document.getElementById('view-list').addEventListener('change', () => main.classList.add('view-list'));
-        
+        // Toggles
+        document.getElementById('btn-list').addEventListener('click', () => {
+            document.body.classList.add('view-mode-list');
+            document.getElementById('btn-list').innerText = "● LIST";
+            document.getElementById('btn-grid').innerText = "○ GRID";
+        });
+
+        document.getElementById('btn-grid').addEventListener('click', () => {
+            document.body.classList.remove('view-mode-list');
+            document.getElementById('btn-list').innerText = "○ LIST";
+            document.getElementById('btn-grid').innerText = "● GRID";
+        });
+
         document.getElementById('theme-toggle').addEventListener('click', (e) => {
             const html = document.documentElement;
             const isDark = html.getAttribute('data-theme') === 'dark';
             html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            e.target.textContent = isDark ? 'DARK' : 'LIGHT';
+            e.target.innerText = isDark ? 'DARK' : 'LIGHT';
         });
 
-        // 5. CLOCK
-        setInterval(() => {
-            document.getElementById('clock').textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-        }, 1000);
-
-        // START
         render();
     </script>
 </body>
