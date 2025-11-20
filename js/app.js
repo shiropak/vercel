@@ -1,74 +1,112 @@
-// Configuration
-const WP_API = 'https://techcrunch.com/wp-json/wp/v2/posts?per_page=6&_embed'; 
-const gridContainer = document.getElementById('project-grid');
-const timeDisplay = document.getElementById('time-display');
+// Config
+const WP_API = 'https://techcrunch.com/wp-json/wp/v2/posts?per_page=8&_embed'; 
+const container = document.getElementById('works-container');
+const preview = document.getElementById('hover-preview');
 
-// 1. Fetch and Build Grid
-async function loadGrid() {
+// State
+let isListView = false;
+
+// 1. Fetch Data
+async function loadWorks() {
     try {
         const res = await fetch(WP_API);
         const posts = await res.json();
-        
-        gridContainer.innerHTML = ''; // Clear loading
+        container.innerHTML = ''; 
 
         posts.forEach((post, index) => {
-            // Get Data
+            // Extract Data
             const title = post.title.rendered;
-            const link = post.link;
-            const date = new Date(post.date).getFullYear();
+            // Mocking categories for the "Tech Look"
+            const categories = ['[GRAPHIC]', '[INTERIOR]', '[ART]'].sort(() => 0.5 - Math.random()).slice(0, 2).join(' ');
+            const date = '04.2025'; // Mock date like screenshot
             
-            // Try to find an image, fallback if none
-            let imgUrl = 'https://via.placeholder.com/600x800/222/fff?text=No+Image';
+            let imgUrl = '';
             if (post._embedded && post._embedded['wp:featuredmedia']) {
                 imgUrl = post._embedded['wp:featuredmedia'][0].source_url;
             }
 
-            // Create the HTML Card
-            const card = document.createElement('a');
-            card.href = link;
-            card.target = "_blank";
-            card.className = 'project-card';
-            card.innerHTML = `
-                <div class="card-image">
-                    <img src="${imgUrl}" alt="${title}">
+            // Build HTML
+            const el = document.createElement('div');
+            el.className = 'work-item';
+            // We store image URL in dataset for the hover effect
+            el.dataset.img = imgUrl;
+
+            el.innerHTML = `
+                <div class="work-image">
+                    <img src="${imgUrl}" loading="lazy">
                 </div>
-                <div class="card-meta">
-                    <div>
-                        <div class="card-title">${title}</div>
-                        <div class="card-category">Design / Concept</div>
+                <div class="work-info">
+                    <div class="work-title">${title}</div>
+                    <div class="work-desc">BREWED TO PERFECTION</div>
+                    <div class="meta-row">
+                        <span class="work-cats">${categories}</span>
+                        <span class="work-date">${date}</span>
                     </div>
-                    <div class="card-date">${date}</div>
                 </div>
             `;
             
-            gridContainer.appendChild(card);
+            // Event Listeners for Hover Preview (List Mode Only)
+            el.addEventListener('mouseenter', () => {
+                if (isListView && imgUrl) {
+                    preview.style.backgroundImage = `url(${imgUrl})`;
+                    preview.classList.add('active');
+                }
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                preview.classList.remove('active');
+            });
+
+            // Follow Mouse Logic
+            el.addEventListener('mousemove', (e) => {
+                if (isListView) {
+                    // Offset slightly from cursor
+                    preview.style.left = e.clientX + 20 + 'px';
+                    preview.style.top = e.clientY + 'px';
+                    // Remove the centering transform from CSS so it follows mouse precisely
+                    preview.style.transform = 'translate(0, -50%)';
+                }
+            });
+
+            container.appendChild(el);
         });
 
-    } catch (error) {
-        gridContainer.innerHTML = '<p>Error loading projects.</p>';
-        console.error(error);
+    } catch (err) {
+        console.error(err);
     }
 }
 
-// 2. Time Display (Like Metzger Footer)
-function updateTime() {
-    const now = new Date();
-    timeDisplay.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
+// 2. View Toggles (Grid vs List)
+const gridBtn = document.getElementById('view-grid');
+const listBtn = document.getElementById('view-list');
+const mainContainer = document.querySelector('main');
 
-// 3. Simple Filter Logic (Visual only for demo)
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        // Remove active class from all
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        // Add to clicked
-        this.classList.add('active');
-        
-        // Optional: You can add logic here to hide/show cards based on tags later
-    });
+gridBtn.addEventListener('change', () => {
+    mainContainer.classList.remove('view-list');
+    isListView = false;
 });
 
+listBtn.addEventListener('change', () => {
+    mainContainer.classList.add('view-list');
+    isListView = true;
+});
+
+// 3. Theme Toggle
+const themeBtn = document.getElementById('theme-toggle');
+themeBtn.addEventListener('click', () => {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', next);
+    themeBtn.textContent = next === 'dark' ? 'LIGHT' : 'DARK';
+});
+
+// 4. Clock
+setInterval(() => {
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}, 1000);
+
 // Init
-loadGrid();
-setInterval(updateTime, 1000);
-updateTime();
+loadWorks();
