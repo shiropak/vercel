@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHIROOT DESIGN STUDIO</title>
+    <title>MAYA METZGER CLONE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,35 +60,36 @@
         /* --- HEADER --- */
         header { margin-bottom: 60px; position: relative; z-index: 100; }
 
+        /* Default Column Style (Vertical Stack) */
         .header-col { display: flex; flex-direction: column; gap: 5px; }
         .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
         
-        /* HEADER RIGHT ALIGNMENT */
+        /* --- HEADER RIGHT FIX --- */
+        /* We override the default column behavior to be a ROW */
         .header-right { 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; /* Pushes Contact top, Theme bottom */
-            align-items: flex-start;
-            height: 100%;
+            display: flex !important; 
+            flex-direction: row !important; /* Forces them onto same line */
+            justify-content: space-between; /* Contact Left, Theme Right */
+            align-items: flex-start; /* Aligns tops */
+            width: 100%;
         }
 
-        /* --- THE NEW THEME SWITCHER --- */
+        /* THEME SWITCHER */
         .theme-switcher {
             display: flex;
-            gap: 15px; /* Space between LIGHT and DARK */
-            margin-top: auto; /* Push to bottom if needed */
+            gap: 15px; 
         }
 
         .theme-opt {
             cursor: pointer;
-            opacity: 0.3; /* Grayed out by default */
+            opacity: 0.3; 
             transition: opacity 0.3s ease;
         }
 
         .theme-opt:hover { opacity: 0.6; }
         
         .theme-opt.active {
-            opacity: 1; /* White/Black when active */
+            opacity: 1; 
             font-weight: 700;
         }
 
@@ -240,7 +241,7 @@
         });
     }
 
-    // --- FIXED THEME LOGIC ---
+    // THEME LOGIC
     const btnLight = document.getElementById('theme-light');
     const btnDark = document.getElementById('theme-dark');
     const html = document.documentElement;
