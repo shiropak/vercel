@@ -1,45 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiropak Portfolio</title>
+    <title>MAYA METZGER CLONE</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav>
-        <div class="logo">Shiropak.</div>
-        <div class="nav-links">
-            <a href="#work">Index</a>
-            <a href="#about">Info</a>
-            <a href="#contact">Contact</a>
+    <nav class="top-bar">
+        <div class="nav-left">
+            <div class="brand">MAYA METZGER</div>
+            <div class="role">VISUAL DESIGNER & ART DIRECTOR</div>
+        </div>
+        
+        <div class="nav-center">
+            <a href="#index" class="active">INDEX</a>
+        </div>
+        
+        <div class="nav-right">
+            <a href="#info">INFO</a>
+            <a href="#contact">CONTACT</a>
+            <button id="theme-toggle" class="theme-btn">LIGHT</button>
         </div>
     </nav>
 
-    <header id="work">
-        <div class="hero-intro">
-            <h1>Visual Designer <br> & Developer</h1>
+    <div class="controls-bar">
+        <div class="view-toggles">
+            <div class="radio-group">
+                <input type="radio" id="view-grid" name="view" checked>
+                <label for="view-grid" class="toggle-label">● GRID</label>
+                
+                <input type="radio" id="view-list" name="view">
+                <label for="view-list" class="toggle-label">○ LIST</label>
+            </div>
         </div>
-        
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="design">Design</button>
-            <button class="filter-btn" data-filter="code">Code</button>
-        </div>
-    </header>
-
-    <main id="project-grid" class="masonry-grid">
-        <div class="loading-text">Loading Project Grid...</div>
-    </main>
-
-    <section id="about" class="info-section">
-        <div class="info-content">
-            <h2>About</h2>
-            <p>
-                Multidisciplinary creative blending art, design, and technology. 
-                I build digital experiences that feel fresh yet timeless.
-            </p>
-            <br>
