@@ -199,7 +199,7 @@ const portfolioItems = [
         desc: "Holistic wellness app combining fitness tracking with meditation guides.", 
         img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
         gallery: []
-    }
+    },
     { 
         id: "joe-coffee", 
         title: "JOE COFFEE", 
