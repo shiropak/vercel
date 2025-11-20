@@ -12,10 +12,7 @@
     --font-mono: 'Space Mono', monospace;
     
     --page-padding: 60px;
-    
-    /* Grid Gap (Horizontal space between columns) */
     --grid-gap: 16px; 
-    
     --max-width: 1800px;
 }
 
@@ -99,25 +96,23 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
    ========================================= */
 .work-item {
     margin-bottom: 80px;
-    /* Removed flex/gap here because the Link inside handles it now */
     display: block; 
     cursor: pointer; 
     break-inside: avoid;
     position: relative;
 }
 
-/* UPDATED: This controls the spacing between Image and Text now */
 .work-link {
     text-decoration: none;
     color: inherit;
     display: flex; 
     flex-direction: column;
-    gap: 24px; /* THIS IS THE FIX */
+    gap: 24px; 
 }
 
 .work-image { 
     width: 100%; 
-    /* I uncommented this line to force the tall shape again */
+    /* UNCOMMENTED to fix the "collapsed image" bug */
     aspect-ratio: 4/5; 
     background-color: #1a1a1a; 
     overflow: hidden;
@@ -128,7 +123,6 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 .work-image img { 
     width: 100%; 
     height: 100%; 
-    /* This ensures the image fills the box without squashing */
     object-fit: cover; 
     display: block; 
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
@@ -273,7 +267,7 @@ body.view-mode-list .work-item {
     display: grid; grid-template-columns: 2fr 3fr 2fr 1fr;
     border-top: 1px solid var(--line); padding: 15px 0; margin-bottom: 0; align-items: center;
 }
-body.view-mode-list .work-link { display: contents; } /* Remove flex for grid layout */
+body.view-mode-list .work-link { display: contents; } 
 body.view-mode-list .work-image { display: none; }
 body.view-mode-list .work-info { display: contents; }
 body.view-mode-list .work-title:hover { text-decoration: underline; color: var(--accent); }
@@ -288,20 +282,43 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* =========================================
-   9. MOBILE RESPONSIVE
+   9. MOBILE RESPONSIVE (UPDATED)
    ========================================= */
 @media (max-width: 768px) {
-    :root { --page-padding: 20px; --grid-gap: 20px; }
-    .grid-layout { grid-template-columns: 1fr; }
-    .header-right, .header-col:nth-child(2), .header-col:nth-child(3) { display: none; }
+    :root { 
+        --page-padding: 20px; 
+        --grid-gap: 12px; /* Tighter gap for mobile */
+    }
+    
+    /* 1. Enable 2-Column Grid */
+    .grid-layout { 
+        grid-template-columns: 1fr 1fr; 
+        row-gap: 20px; /* Add vertical spacing for header items */
+    }
+
+    /* 2. Restore Menu Items */
+    .header-right, 
+    .header-col:nth-child(2), 
+    .header-col:nth-child(3) { 
+        display: flex; 
+    }
+
+    /* 3. Controls */
     .controls-box { width: 100%; }
     
+    /* 4. Footer - Stack Full Width */
     footer { margin-top: 80px; padding: 20px; }
-    .footer-col { grid-column: span 1; gap: 20px; margin-bottom: 40px; }
+    
+    .footer-col { 
+        grid-column: 1 / -1; /* Footer sections take full width */
+        gap: 20px; 
+        margin-bottom: 40px; 
+    }
     .col-middle { padding-right: 0; }
     .col-right { align-items: flex-start; text-align: left; }
     .copyright { order: 10; }
 
+    /* 5. Project Page Mobile */
     .project-layout { display: flex; flex-direction: column; gap: 40px; }
     .project-description-col { font-size: 12px; }
 }
