@@ -1,227 +1,204 @@
 // DATA: 20 Unique Works
 const portfolioItems = [
+    // 1-4
     { 
-        id: "joe-coffee", 
-        title: "JOE COFFEE", 
-        client: "JOE COFFEE NY",
-        tags: "[INTERIOR]", 
-        date: "04.2025", 
+        id: "joe-coffee", title: "JOE COFFEE", client: "JOE COFFEE NY", tags: "[INTERIOR]", date: "04.2025", 
         desc: "A modern take on a classic coffee house experience, blending minimalist design with warm, inviting textures.", 
         img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=1200&auto=format&fit=crop"]
     },
     { 
-        id: "atlas-mobility", 
-        title: "ATLAS MOBILITY", 
-        client: "ATLAS CORP",
-        tags: "[TECH]", 
-        date: "06.2025", 
+        id: "atlas-mobility", title: "ATLAS MOBILITY", client: "ATLAS CORP", tags: "[TECH]", date: "06.2025", 
         desc: "Designing intuitive interfaces for next-generation urban transport systems.", 
         img: "https://images.unsplash.com/photo-1517420704952-d9f3971d7894?q=80&w=800&auto=format&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1556942657-313d11b32ee7?q=80&w=1200&auto=format&fit=crop"]
     },
     { 
-        id: "lumina-health", 
-        title: "LUMINA HEALTH", 
-        client: "LUMINA INC", 
-        tags: "[GRAPHIC]", 
-        date: "08.2024", 
+        id: "lumina-health", title: "LUMINA HEALTH", client: "LUMINA INC", tags: "[GRAPHIC]", date: "08.2024", 
         desc: "Visual identity and branding for a health tech startup, focused on creating trust and clarity.", 
         img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "nestwell", 
-        title: "NESTWELL", 
-        client: "NESTWELL HOME", 
-        tags: "[ART]", 
-        date: "02.2024", 
+        id: "nestwell", title: "NESTWELL", client: "NESTWELL HOME", tags: "[ART]", date: "02.2024", 
         desc: "An art direction project exploring the emotional connection to home through conceptual photography.", 
         img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
+    // 5-8
     { 
-        id: "alba-ceramics", 
-        title: "ALBA CERAMICS", 
-        client: "ALBA STUDIO", 
-        tags: "[CRAFT]", 
-        date: "09.2023", 
+        id: "alba-ceramics", title: "ALBA CERAMICS", client: "ALBA STUDIO", tags: "[CRAFT]", date: "09.2023", 
         desc: "Branding and product photography for a bespoke ceramic studio, emphasizing artisanal process.", 
         img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "waypoint", 
-        title: "WAYPOINT TRAVEL", 
-        client: "WAYPOINT APP", 
-        tags: "[UX/UI]", 
-        date: "04.2023", 
+        id: "waypoint", title: "WAYPOINT TRAVEL", client: "WAYPOINT APP", tags: "[UX/UI]", date: "04.2023", 
         desc: "UX/UI design for a premium travel planning platform, focusing on intuitive navigation.", 
         img: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "harbor-co", 
-        title: "HARBOR CO", 
-        client: "HARBOR SEAFOOD", 
-        tags: "[GRAPHIC]", 
-        date: "02.2023", 
+        id: "harbor-co", title: "HARBOR CO", client: "HARBOR SEAFOOD", tags: "[GRAPHIC]", date: "02.2023", 
         desc: "Rebranding and packaging design for an artisanal seafood company.", 
         img: "https://images.unsplash.com/photo-1529690086133-c8e4bc9e1f6a?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "nova-biotech", 
-        title: "NOVA BIOTECH", 
-        client: "NOVA LABS", 
-        tags: "[SCIENCE]", 
-        date: "05.2022", 
+        id: "nova-biotech", title: "NOVA BIOTECH", client: "NOVA LABS", tags: "[SCIENCE]", date: "05.2022", 
         desc: "Creating visual identities for scientific innovation and cutting-edge research.", 
         img: "https://images.unsplash.com/photo-1581093458891-8f30869852bb?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
+    // 9-12
     { 
-        id: "stratos-aero", 
-        title: "STRATOS AERO", 
-        client: "STRATOS", 
-        tags: "[TECH]", 
-        date: "11.2021", 
+        id: "stratos-aero", title: "STRATOS AERO", client: "STRATOS", tags: "[TECH]", date: "11.2021", 
         desc: "Aerospace engineering visualization and brand identity for a private spaceflight company.", 
         img: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "form-void", 
-        title: "FORM & VOID", 
-        client: "ARCHITECTURAL DIGEST", 
-        tags: "[INTERIOR]", 
-        date: "09.2021", 
+        id: "form-void", title: "FORM & VOID", client: "ARCH DIGEST", tags: "[INTERIOR]", date: "09.2021", 
         desc: "Minimalist interior design showcase focusing on negative space and light.", 
         img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "echo-sound", 
-        title: "ECHO SOUND", 
-        client: "ECHO AUDIO", 
-        tags: "[PRODUCT]", 
-        date: "07.2021", 
+        id: "echo-sound", title: "ECHO SOUND", client: "ECHO AUDIO", tags: "[PRODUCT]", date: "07.2021", 
         desc: "Product design and packaging for high-fidelity noise cancelling headphones.", 
         img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "prism-arch", 
-        title: "PRISM ARCH", 
-        client: "CITY PLANNING", 
-        tags: "[ARCHITECTURE]", 
-        date: "05.2021", 
+        id: "prism-arch", title: "PRISM ARCH", client: "CITY PLANNING", tags: "[ARCHITECTURE]", date: "05.2021", 
         desc: "Conceptual architectural rendering for a sustainable community center.", 
         img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
+    // 13-16
     { 
-        id: "kinetic-type", 
-        title: "KINETIC TYPE", 
-        client: "TYPE FOUNDRY", 
-        tags: "[GRAPHIC]", 
-        date: "03.2021", 
+        id: "kinetic-type", title: "KINETIC TYPE", client: "TYPE FOUNDRY", tags: "[GRAPHIC]", date: "03.2021", 
         desc: "Motion graphics exploration of typography in digital spaces.", 
         img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "bloom-botanics", 
-        title: "BLOOM BOTANICS", 
-        client: "BLOOM SKINCARE", 
-        tags: "[BRANDING]", 
-        date: "01.2021", 
+        id: "bloom-botanics", title: "BLOOM BOTANICS", client: "BLOOM SKINCARE", tags: "[BRANDING]", date: "01.2021", 
         desc: "Organic skincare packaging design inspired by rare flora.", 
         img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "urban-pulse", 
-        title: "URBAN PULSE", 
-        client: "NY MAGAZINE", 
-        tags: "[PHOTOGRAPHY]", 
-        date: "11.2020", 
+        id: "urban-pulse", title: "URBAN PULSE", client: "NY MAGAZINE", tags: "[PHOTOGRAPHY]", date: "11.2020", 
         desc: "Street photography series capturing the rhythm of post-pandemic city life.", 
         img: "https://images.unsplash.com/photo-1449824913929-2b3a3e380d7b?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "cipher-security", 
-        title: "CIPHER SEC", 
-        client: "CIPHER", 
-        tags: "[WEB]", 
-        date: "09.2020", 
+        id: "cipher-security", title: "CIPHER SEC", client: "CIPHER", tags: "[WEB]", date: "09.2020", 
         desc: "Cybersecurity dashboard UI with a focus on data visualization and threat detection.", 
         img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
+    // 17-20
     { 
-        id: "aether-scent", 
-        title: "AETHER SCENT", 
-        client: "LUXE PARFUM", 
-        tags: "[PACKAGING]", 
-        date: "07.2020", 
+        id: "aether-scent", title: "AETHER SCENT", client: "LUXE PARFUM", tags: "[PACKAGING]", date: "07.2020", 
         desc: "Glass bottle design and outer packaging for a limited edition fragrance.", 
         img: "https://images.unsplash.com/photo-1594035910387-fea477942654?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "terra-firma", 
-        title: "TERRA FIRMA", 
-        client: "NATIONAL PARKS", 
-        tags: "[LANDSCAPE]", 
-        date: "05.2020", 
+        id: "terra-firma", title: "TERRA FIRMA", client: "NATIONAL PARKS", tags: "[LANDSCAPE]", date: "05.2020", 
         desc: "Wayfinding system and signage for a desert conservation area.", 
         img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "quantum-fi", 
-        title: "QUANTUM FI", 
-        client: "Q-BANK", 
-        tags: "[UI/UX]", 
-        date: "03.2020", 
+        id: "quantum-fi", title: "QUANTUM FI", client: "Q-BANK", tags: "[UI/UX]", date: "03.2020", 
         desc: "Mobile banking app interface design focused on millennial investment habits.", 
         img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
     { 
-        id: "zenith-fit", 
-        title: "ZENITH FIT", 
-        client: "ZENITH", 
-        tags: "[APP]", 
-        date: "01.2020", 
+        id: "zenith-fit", title: "ZENITH FIT", client: "ZENITH", tags: "[APP]", date: "01.2020", 
         desc: "Holistic wellness app combining fitness tracking with meditation guides.", 
         img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
         gallery: []
     }
 ];
 
+// STATE
+let itemsDisplayed = 8; // Start with 8
+let currentFilter = 'all';
+
 // --- ROUTER ---
 if (window.location.pathname.includes('project.html')) {
     loadProjectDetail();
 } else {
-    // Safe check: Only run render if the container exists
-    if (document.getElementById('works-container')) render('all');
+    // Only run home logic if container exists
+    const container = document.getElementById('works-container');
+    if (container) {
+        render(currentFilter);
+        setupScrollListener(); // NEW: Enable scroll loading
+    }
+}
+
+// --- SCROLL LISTENER ---
+function setupScrollListener() {
+    window.addEventListener('scroll', () => {
+        // Check if user is near bottom of page
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+            // Load more items
+            if (itemsDisplayed < getFilteredItems().length) {
+                itemsDisplayed += 4; // Load 4 more (1 row)
+                render(currentFilter, true); // true = append mode (don't clear existing)
+            }
+        }
+    });
+}
+
+function getFilteredItems() {
+    return currentFilter === 'all' 
+        ? portfolioItems 
+        : portfolioItems.filter(item => item.tags.toLowerCase().includes(currentFilter));
 }
 
 // --- HOME RENDER ---
-function render(filter = 'all') {
+function render(filter = 'all', append = false) {
     const container = document.getElementById('works-container');
     const preview = document.getElementById('hover-preview');
     if (!container) return;
 
-    container.innerHTML = '';
-    const filteredItems = filter === 'all' ? portfolioItems : portfolioItems.filter(item => item.tags.toLowerCase().includes(filter));
+    currentFilter = filter;
+    
+    // If not appending (i.e., clicked a filter), reset and clear
+    if (!append) {
+        container.innerHTML = '';
+        // If switching filters, reset count to 8, unless we want to show all matches immediately
+        // For this logic, let's reset to 8 to keep the "load on scroll" feel
+        itemsDisplayed = 8; 
+    }
 
-    filteredItems.forEach((item, index) => {
+    const allFiltered = getFilteredItems();
+    const itemsToShow = allFiltered.slice(0, itemsDisplayed);
+
+    // If appending, we only want to render the NEW items, not re-render everything
+    // But for simplicity in vanilla JS without Virtual DOM, re-rendering is safer 
+    // to ensure order. To be efficient, we clear and re-render the slice.
+    // A better optimization: only render items from `oldcount` to `newcount`.
+    
+    container.innerHTML = ''; // Clear for simplicity (fast enough for 20 items)
+
+    if (itemsToShow.length === 0) {
+        container.innerHTML = '<div style="grid-column: span 4; opacity: 0.5;">NO PROJECTS FOUND.</div>';
+        return;
+    }
+
+    itemsToShow.forEach((item, index) => {
         const el = document.createElement('div');
         el.className = 'work-item';
+        
+        // Only animate if it's a new load or filter change
         el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`;
         el.style.opacity = '0';
 
@@ -242,7 +219,7 @@ function render(filter = 'all') {
             </a>
         `;
 
-        // List Hover
+        // List Hover Events
         el.addEventListener('mouseenter', () => {
             if (document.body.classList.contains('view-mode-list')) {
                 preview.style.backgroundImage = `url(${item.img})`;
@@ -301,6 +278,8 @@ function loadProjectDetail() {
 
     const galleryContainer = document.getElementById('p-gallery');
     if (galleryContainer) {
+        // Clear just in case
+        galleryContainer.innerHTML = '';
         if (project.gallery && project.gallery.length > 0) {
             project.gallery.forEach(src => {
                 const img = document.createElement('img');
@@ -317,7 +296,7 @@ function loadProjectDetail() {
     }
 }
 
-// --- THEME & CLOCK ---
+// --- THEME & CLOCK & VIEW ---
 const btnLight = document.getElementById('theme-light');
 const btnDark = document.getElementById('theme-dark');
 const html = document.documentElement;
@@ -333,22 +312,17 @@ function setTheme(theme) {
     }
 }
 
-// Initial Theme Load
 const savedTheme = localStorage.getItem('theme') || 'dark';
 setTheme(savedTheme);
 
-if(btnLight) {
-    btnLight.addEventListener('click', () => {
-        setTheme('light');
-        localStorage.setItem('theme', 'light');
-    });
-}
-if(btnDark) {
-    btnDark.addEventListener('click', () => {
-        setTheme('dark');
-        localStorage.setItem('theme', 'dark');
-    });
-}
+if(btnLight) btnLight.addEventListener('click', () => {
+    setTheme('light');
+    localStorage.setItem('theme', 'light');
+});
+if(btnDark) btnDark.addEventListener('click', () => {
+    setTheme('dark');
+    localStorage.setItem('theme', 'dark');
+});
 
 const btnList = document.getElementById('btn-list');
 const btnGrid = document.getElementById('btn-grid');
@@ -376,7 +350,6 @@ function updateClock() {
     hours = hours % 12; hours = hours ? hours : 12; 
     
     const clockEl = document.getElementById('live-clock');
-    // Safety Check
     if(clockEl) clockEl.innerText = `ZÜRICH, CH ${hours}:${minutes} ${ampm}`;
 }
 setInterval(updateClock, 1000);
