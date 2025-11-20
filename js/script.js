@@ -1,6 +1,5 @@
 // DATA: 20 Unique Works
 const portfolioItems = [
-    // 1-4
     { 
         id: "joe-coffee", title: "JOE COFFEE", client: "JOE COFFEE NY", tags: "[INTERIOR]", date: "04.2025", 
         desc: "A modern take on a classic coffee house experience, blending minimalist design with warm, inviting textures.", 
@@ -25,7 +24,6 @@ const portfolioItems = [
         img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
-    // 5-8
     { 
         id: "alba-ceramics", title: "ALBA CERAMICS", client: "ALBA STUDIO", tags: "[CRAFT]", date: "09.2023", 
         desc: "Branding and product photography for a bespoke ceramic studio, emphasizing artisanal process.", 
@@ -50,7 +48,6 @@ const portfolioItems = [
         img: "https://images.unsplash.com/photo-1581093458891-8f30869852bb?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
-    // 9-12
     { 
         id: "stratos-aero", title: "STRATOS AERO", client: "STRATOS", tags: "[TECH]", date: "11.2021", 
         desc: "Aerospace engineering visualization and brand identity for a private spaceflight company.", 
@@ -75,7 +72,6 @@ const portfolioItems = [
         img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
-    // 13-16
     { 
         id: "kinetic-type", title: "KINETIC TYPE", client: "TYPE FOUNDRY", tags: "[GRAPHIC]", date: "03.2021", 
         desc: "Motion graphics exploration of typography in digital spaces.", 
@@ -100,7 +96,6 @@ const portfolioItems = [
         img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
         gallery: []
     },
-    // 17-20
     { 
         id: "aether-scent", title: "AETHER SCENT", client: "LUXE PARFUM", tags: "[PACKAGING]", date: "07.2020", 
         desc: "Glass bottle design and outer packaging for a limited edition fragrance.", 
@@ -130,6 +125,7 @@ const portfolioItems = [
 // STATE
 let itemsDisplayed = 8; // Start with 8
 let currentFilter = 'all';
+let isLoading = false; // Loading state
 
 // --- ROUTER ---
 if (window.location.pathname.includes('project.html')) {
@@ -139,22 +135,38 @@ if (window.location.pathname.includes('project.html')) {
     const container = document.getElementById('works-container');
     if (container) {
         render(currentFilter);
-        setupScrollListener(); // NEW: Enable scroll loading
+        setupScrollListener();
     }
 }
 
 // --- SCROLL LISTENER ---
 function setupScrollListener() {
     window.addEventListener('scroll', () => {
+        if (isLoading) return; // Prevent multiple triggers
+
         // Check if user is near bottom of page
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-            // Load more items
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
+            // Check if more items to load
             if (itemsDisplayed < getFilteredItems().length) {
-                itemsDisplayed += 4; // Load 4 more (1 row)
-                render(currentFilter, true); // true = append mode (don't clear existing)
+                loadMoreItems();
             }
         }
     });
+}
+
+function loadMoreItems() {
+    isLoading = true;
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if(loadingIndicator) loadingIndicator.classList.add('visible');
+
+    // Simulate network request (delay)
+    setTimeout(() => {
+        itemsDisplayed += 4; // Load 4 more
+        render(currentFilter, true); // Append
+        
+        if(loadingIndicator) loadingIndicator.classList.remove('visible');
+        isLoading = false;
+    }, 800); // 800ms delay
 }
 
 function getFilteredItems() {
@@ -171,36 +183,51 @@ function render(filter = 'all', append = false) {
 
     currentFilter = filter;
     
-    // If not appending (i.e., clicked a filter), reset and clear
     if (!append) {
         container.innerHTML = '';
-        // If switching filters, reset count to 8, unless we want to show all matches immediately
-        // For this logic, let's reset to 8 to keep the "load on scroll" feel
-        itemsDisplayed = 8; 
+        // Only reset itemsDisplayed if filtering, not if we are just appending
+        // But if we filter, we should reset to 8
+        if(itemsDisplayed > 8 && !append) itemsDisplayed = 8; 
     }
 
     const allFiltered = getFilteredItems();
     const itemsToShow = allFiltered.slice(0, itemsDisplayed);
 
-    // If appending, we only want to render the NEW items, not re-render everything
-    // But for simplicity in vanilla JS without Virtual DOM, re-rendering is safer 
-    // to ensure order. To be efficient, we clear and re-render the slice.
-    // A better optimization: only render items from `oldcount` to `newcount`.
-    
-    container.innerHTML = ''; // Clear for simplicity (fast enough for 20 items)
+    // Clear if not appending to avoid duplicates in this simple implementation
+    if(!append) container.innerHTML = ''; 
 
-    if (itemsToShow.length === 0) {
+    // If appending, we only want to render the NEW items.
+    // But keeping it simple: if not appending, render all itemsToShow.
+    // If appending, we render only the slice from (itemsDisplayed - 4) to itemsDisplayed.
+    
+    let itemsToRender = itemsToShow;
+    if (append) {
+        // Only render the newly added items
+        const previousCount = itemsDisplayed - 4;
+        itemsToRender = allFiltered.slice(previousCount, itemsDisplayed);
+    }
+
+    if (itemsToRender.length === 0 && !append) {
         container.innerHTML = '<div style="grid-column: span 4; opacity: 0.5;">NO PROJECTS FOUND.</div>';
         return;
     }
 
-    itemsToShow.forEach((item, index) => {
+    itemsToRender.forEach((item, index) => {
         const el = document.createElement('div');
         el.className = 'work-item';
         
         // Only animate if it's a new load or filter change
-        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`;
+        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
         el.style.opacity = '0';
+
+        // Calculate correct global index for display
+        // If appending, we need to know the offset
+        let displayIndex = index + 1;
+        if (append) {
+             displayIndex = (itemsDisplayed - 4) + index + 1;
+        } else {
+             displayIndex = index + 1;
+        }
 
         el.innerHTML = `
             <a href="project.html?id=${item.id}" class="work-link">
@@ -212,7 +239,7 @@ function render(filter = 'all', append = false) {
                     </div>
                 </div>
                 <div class="work-info">
-                    <div class="work-title">${index + 1} <br> ${item.title}</div>
+                    <div class="work-title">${displayIndex} <br> ${item.title}</div>
                     <div class="work-meta">${item.desc.substring(0, 30)}... <br> ${item.tags}</div>
                     <div class="work-date">${item.date}</div>
                 </div>
@@ -248,6 +275,9 @@ if (filterOptions) {
             });
             opt.classList.add('active');
             opt.innerText = opt.innerText.replace('○', '●');
+            
+            // Reset display count when filtering
+            itemsDisplayed = 8;
             render(opt.getAttribute('data-filter'));
         });
     });
@@ -278,7 +308,6 @@ function loadProjectDetail() {
 
     const galleryContainer = document.getElementById('p-gallery');
     if (galleryContainer) {
-        // Clear just in case
         galleryContainer.innerHTML = '';
         if (project.gallery && project.gallery.length > 0) {
             project.gallery.forEach(src => {
