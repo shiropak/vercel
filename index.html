@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAYA METZGER CLONE</title>
+    <title>SHIROOT DESIGN STUDIO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,10 +18,9 @@
             --hover-bg: #1a1a1a;
             --font-mono: 'Space Mono', monospace;
             
-            /* SPACING VARIABLES */
-            --page-padding: 60px; /* Distance from screen edges */
-            --grid-gap: 40px;     /* Space between columns */
-            --max-width: 1800px;  /* Prevents it from being too wide */
+            --page-padding: 60px;
+            --grid-gap: 40px;
+            --max-width: 1800px;
         }
 
         [data-theme="light"] {
@@ -41,45 +40,60 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            /* ADDING THE FRAME */
             padding: var(--page-padding); 
             width: 100%;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* WRAPPER to stop it from being "Fullscreen" on huge monitors */
-        .site-wrapper {
-            max-width: var(--max-width);
-            margin: 0 auto; /* Center the site */
-        }
+        .site-wrapper { max-width: var(--max-width); margin: 0 auto; }
 
         a { text-decoration: none; color: inherit; cursor: pointer; }
-        button { background: none; border: none; color: inherit; font-family: inherit; cursor: pointer; text-transform: uppercase; font-size: 11px;}
 
-        /* --- UNIFIED GRID --- */
+        /* --- GRID SYSTEM --- */
         .grid-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 Columns */
+            grid-template-columns: 1fr 1fr 1fr 1fr; 
             column-gap: var(--grid-gap);
             width: 100%;
         }
 
         /* --- HEADER --- */
-        header {
-            margin-bottom: 60px; /* Push content down */
-            position: relative;
-            z-index: 100;
-        }
+        header { margin-bottom: 60px; position: relative; z-index: 100; }
 
         .header-col { display: flex; flex-direction: column; gap: 5px; }
         .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
-        .header-right { display: flex; justify-content: space-between; }
+        
+        /* HEADER RIGHT ALIGNMENT */
+        .header-right { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; /* Pushes Contact top, Theme bottom */
+            align-items: flex-start;
+            height: 100%;
+        }
+
+        /* --- THE NEW THEME SWITCHER --- */
+        .theme-switcher {
+            display: flex;
+            gap: 15px; /* Space between LIGHT and DARK */
+            margin-top: auto; /* Push to bottom if needed */
+        }
+
+        .theme-opt {
+            cursor: pointer;
+            opacity: 0.3; /* Grayed out by default */
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-opt:hover { opacity: 0.6; }
+        
+        .theme-opt.active {
+            opacity: 1; /* White/Black when active */
+            font-weight: 700;
+        }
 
         /* --- CONTROLS --- */
-        .controls-wrapper {
-            margin-bottom: 60px;
-            grid-column: 1 / -1; /* Span full width */
-        }
-        
+        .controls-wrapper { margin-bottom: 60px; grid-column: 1 / -1; }
         .controls-box {
             background: var(--hover-bg);
             display: inline-flex;
@@ -88,62 +102,39 @@
             padding: 12px 16px;
             min-width: 240px;
         }
-
         .control-row { display: flex; gap: 15px; }
         .control-option { opacity: 0.4; cursor: pointer; transition: 0.2s; }
         .control-option.active { opacity: 1; font-weight: 700; }
         .control-option:hover { opacity: 0.8; }
 
-        /* --- WORKS GRID --- */
+        /* --- WORKS --- */
         .work-item {
-            margin-bottom: 80px; /* Space between rows */
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            cursor: pointer;
-            break-inside: avoid; /* For masonry */
+            margin-bottom: 80px;
+            display: flex; flex-direction: column; gap: 15px;
+            cursor: pointer; break-inside: avoid;
         }
-
-        .work-image {
-            width: 100%;
-            /* REMOVED aspect-ratio to allow natural height */
-            display: block;
-        }
-
-        .work-image img {
-            width: 100%;
-            height: auto; /* Natural Height */
-            display: block;
-            transition: opacity 0.3s ease;
-        }
-        
+        .work-image { width: 100%; display: block; }
+        .work-image img { width: 100%; height: auto; display: block; transition: opacity 0.3s ease; }
         .work-item:hover .work-image img { opacity: 0.8; }
 
-        /* TYPOGRAPHY */
         .work-info { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
         .work-title { font-weight: 700; }
         .work-meta { color: #666; }
         .work-date { color: #444; margin-top: 2px; }
 
-        /* --- LIST VIEW OVERRIDES --- */
+        /* LIST MODE */
         body.view-mode-list .grid-layout.works-container { display: block; }
-        
         body.view-mode-list .work-item {
-            display: grid;
-            grid-template-columns: 2fr 3fr 2fr 1fr;
-            border-top: 1px solid var(--line);
-            padding: 15px 0;
-            margin-bottom: 0;
-            align-items: center;
+            display: grid; grid-template-columns: 2fr 3fr 2fr 1fr;
+            border-top: 1px solid var(--line); padding: 15px 0; margin-bottom: 0; align-items: center;
         }
-        
         body.view-mode-list .work-image { display: none; }
         body.view-mode-list .work-info { display: contents; }
         body.view-mode-list .work-title:hover { text-decoration: underline; color: var(--accent); }
 
         /* PREVIEW */
         .hover-preview {
-            position: fixed; width: 280px; height: 350px; /* Portrait ratio */
+            position: fixed; width: 280px; height: 350px;
             top: 0; left: 0; transform: translate(-50%, -50%) scale(0.9);
             opacity: 0; pointer-events: none; z-index: 50;
             background-size: cover; background-position: center;
@@ -170,9 +161,14 @@
         </div>
         <div class="header-col"><a href="#">INDEX</a></div>
         <div class="header-col"><a href="#">INFO</a></div>
+        
         <div class="header-col header-right">
             <a href="#">CONTACT</a>
-            <button id="theme-toggle">LIGHT</button>
+            
+            <div class="theme-switcher">
+                <span id="theme-light" class="theme-opt">LIGHT</span>
+                <span id="theme-dark" class="theme-opt active">DARK</span>
+            </div>
         </div>
     </header>
 
@@ -194,34 +190,21 @@
     <main id="works-container" class="grid-layout works-container">
         </main>
     
-</div> <div id="hover-preview" class="hover-preview"></div>
+</div>
+
+<div id="hover-preview" class="hover-preview"></div>
 
 <script>
-    // DATA (Using different aspect ratios to show off non-square)
+    // DATA
     const portfolioItems = [
-        { title: "JOE COFFEE", tags: "[INTERIOR]", date: "04.2025", desc: "BREWED TO PERFECTION", 
-          img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" }, // Portrait
-        
-        { title: "ATLAS MOBILITY", tags: "[TECH]", date: "06.2025", desc: "FUTURE TRANSIT", 
-          img: "https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=800&auto=format&fit=crop" }, // Landscape
-        
-        { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", 
-          img: "https://images.unsplash.com/photo-1576091160550-2187d80a58fd?q=80&w=800&auto=format&fit=crop" }, // Portrait
-        
-        { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "HOME & COMFORT", 
-          img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=800&auto=format&fit=crop" }, // Square-ish
-        
-        { title: "ALBA CERAMICS", tags: "[CRAFT]", date: "09.2023", desc: "CONTEMPORARY CRAFT", 
-          img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=800&auto=format&fit=crop" }, // Portrait
-        
-        { title: "WAYPOINT", tags: "[UX/UI]", date: "04.2023", desc: "SEAMLESS JOURNEYS", 
-          img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop" }, // Wide Landscape
-        
-        { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", 
-          img: "https://images.unsplash.com/photo-1559136555-930b730e8583?q=80&w=800&auto=format&fit=crop" }, // Portrait
-        
-        { title: "NOVA BIOTECH", tags: "[SCIENCE]", date: "05.2022", desc: "FUTURE WELLNESS", 
-          img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=800&auto=format&fit=crop" } // Landscape
+        { title: "JOE COFFEE", tags: "[INTERIOR]", date: "04.2025", desc: "BREWED TO PERFECTION", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" },
+        { title: "ATLAS MOBILITY", tags: "[TECH]", date: "06.2025", desc: "FUTURE TRANSIT", img: "https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=800&auto=format&fit=crop" },
+        { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", img: "https://images.unsplash.com/photo-1576091160550-2187d80a58fd?q=80&w=800&auto=format&fit=crop" },
+        { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "HOME & COMFORT", img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=800&auto=format&fit=crop" },
+        { title: "ALBA CERAMICS", tags: "[CRAFT]", date: "09.2023", desc: "CONTEMPORARY CRAFT", img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=800&auto=format&fit=crop" },
+        { title: "WAYPOINT", tags: "[UX/UI]", date: "04.2023", desc: "SEAMLESS JOURNEYS", img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop" },
+        { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", img: "https://images.unsplash.com/photo-1559136555-930b730e8583?q=80&w=800&auto=format&fit=crop" },
+        { title: "NOVA BIOTECH", tags: "[SCIENCE]", date: "05.2022", desc: "FUTURE WELLNESS", img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=800&auto=format&fit=crop" }
     ];
 
     const container = document.getElementById('works-container');
@@ -240,8 +223,6 @@
                     <div class="work-date">${item.date}</div>
                 </div>
             `;
-            
-            // Interactions
             el.addEventListener('mouseenter', () => {
                 if(document.body.classList.contains('view-mode-list')) {
                     preview.style.backgroundImage = `url(${item.img})`;
@@ -255,29 +236,39 @@
                     preview.style.top = e.clientY + 'px';
                 }
             });
-
             container.appendChild(el);
         });
     }
 
-    // Logic
+    // --- FIXED THEME LOGIC ---
+    const btnLight = document.getElementById('theme-light');
+    const btnDark = document.getElementById('theme-dark');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if(theme === 'dark') {
+            btnDark.classList.add('active');
+            btnLight.classList.remove('active');
+        } else {
+            btnLight.classList.add('active');
+            btnDark.classList.remove('active');
+        }
+    }
+
+    btnLight.addEventListener('click', () => setTheme('light'));
+    btnDark.addEventListener('click', () => setTheme('dark'));
+
+    // VIEW LOGIC
     document.getElementById('btn-list').addEventListener('click', () => {
         document.body.classList.add('view-mode-list');
         document.getElementById('btn-list').innerText = "● LIST";
         document.getElementById('btn-grid').innerText = "○ GRID";
     });
-
     document.getElementById('btn-grid').addEventListener('click', () => {
         document.body.classList.remove('view-mode-list');
         document.getElementById('btn-list').innerText = "○ LIST";
         document.getElementById('btn-grid').innerText = "● GRID";
-    });
-
-    document.getElementById('theme-toggle').addEventListener('click', (e) => {
-        const html = document.documentElement;
-        const isDark = html.getAttribute('data-theme') === 'dark';
-        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        e.target.innerText = isDark ? 'DARK' : 'LIGHT';
     });
 
     render();
