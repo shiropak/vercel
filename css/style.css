@@ -1,169 +1,168 @@
 :root {
-    --bg: #0a0a0a; /* Dark background like you prefer */
-    --text: #ededed;
-    --card-bg: #141414;
+    --bg: #0a0a0a;
+    --text: #e0e0e0;
+    --line: #333333;
     --accent: #ffffff;
-    --font: 'Inter', sans-serif;
+    --hover-bg: #1a1a1a;
+    
+    --font-main: 'Inter', sans-serif;
+    --font-mono: 'Space Mono', monospace;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* Light Mode Variables */
+[data-theme="light"] {
+    --bg: #f0f0f0;
+    --text: #1a1a1a;
+    --line: #dcdcdc;
+    --accent: #000000;
+    --hover-bg: #e6e6e6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--font);
-    line-height: 1.5;
-    overflow-x: hidden;
+    font-family: var(--font-mono); /* Default to mono for that raw look */
+    font-size: 12px; /* Small tech text */
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
 }
 
-/* --- Navigation --- */
-nav {
+a { text-decoration: none; color: inherit; cursor: pointer; }
+button { background: none; border: none; color: inherit; font-family: inherit; cursor: pointer; text-transform: uppercase; font-size: 12px;}
+
+/* --- 1. Top Navigation --- */
+.top-bar {
     display: flex;
     justify-content: space-between;
-    padding: 2rem 4%;
+    padding: 20px;
     position: sticky;
     top: 0;
-    background: rgba(10,10,10, 0.9);
-    backdrop-filter: blur(10px);
+    background: var(--bg);
     z-index: 100;
+    border-bottom: 1px solid transparent; /* Invisible border for alignment */
 }
 
-.logo { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
+.nav-left { display: flex; flex-direction: column; gap: 4px; }
+.brand { font-weight: 700; letter-spacing: 1px; }
+.role { color: #666; }
 
-.nav-links a {
-    margin-left: 2rem;
-    text-decoration: none;
-    color: #888;
-    font-size: 0.9rem;
-    transition: 0.3s;
-}
-.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; gap: 30px; }
+.theme-btn { opacity: 0.6; }
+.theme-btn:hover { opacity: 1; }
 
-/* --- Hero & Filters --- */
-header { padding: 4rem 4% 2rem; }
-
-.hero-intro h1 {
-    font-size: 4rem;
-    line-height: 1.1;
-    margin-bottom: 3rem;
-    letter-spacing: -2px;
-}
-
-.filter-bar {
+/* --- 2. Controls (The grey box vibe) --- */
+.controls-bar {
+    padding: 0 20px 40px 20px;
     display: flex;
-    gap: 1rem;
-    border-bottom: 1px solid #222;
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.filter-btn {
-    background: none;
-    border: 1px solid transparent;
-    color: #666;
-    font-size: 1rem;
+.radio-group {
+    display: flex;
+    gap: 20px;
+    background: var(--hover-bg);
+    padding: 10px 15px;
+    display: inline-flex;
+    width: fit-content;
+}
+
+input[type="radio"] { display: none; } /* Hide default radio */
+
+.toggle-label { cursor: pointer; opacity: 0.5; transition: 0.2s; }
+input:checked + .toggle-label, .filter-btn.active { opacity: 1; font-weight: 700; }
+
+/* --- 3. MAIN LAYOUT (Grid Mode - Default) --- */
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columns like the screenshot */
+    gap: 20px; /* Tight gap */
+    padding: 0 20px 100px 20px;
+}
+
+.work-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    transition: 0.3s;
 }
 
-.filter-btn:hover { color: var(--text); }
-.filter-btn.active {
-    color: var(--bg);
-    background: var(--text);
-    border-color: var(--text);
-}
-
-/* --- Masonry Grid --- */
-.masonry-grid {
-    padding: 0 4%;
-    column-count: 2; /* 2 Columns like Metzger */
-    column-gap: 2rem;
-}
-
-.project-card {
-    break-inside: avoid; /* Prevents card from being cut in half */
-    margin-bottom: 3rem;
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.card-image {
+.work-image {
     width: 100%;
-    border-radius: 12px;
+    aspect-ratio: 1 / 1; /* Square images */
     background: #222;
-    margin-bottom: 1rem;
-    transition: transform 0.4s ease;
     overflow: hidden;
 }
+.work-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.work-item:hover .work-image img { transform: scale(1.05); }
 
-.project-card:hover .card-image img { transform: scale(1.03); }
-
-.card-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.4s ease;
+.work-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    line-height: 1.4;
 }
 
-.card-meta {
+.meta-row { display: flex; justify-content: space-between; color: #666; }
+
+/* --- 4. LIST MODE (The "Spreadsheet" Look) --- */
+/* We use a class added by JS to switch styles */
+.view-list .works-grid {
+    display: block; /* Stack vertically */
+}
+
+.view-list .work-item {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr 1fr; /* Name | Desc | Tags | Date */
+    border-top: 1px solid var(--line);
+    padding: 15px 0;
+    align-items: center;
+}
+.view-list .work-item:last-child { border-bottom: 1px solid var(--line); }
+
+.view-list .work-image { display: none; } /* Hide inline images in list view */
+.view-list .work-info { display: contents; } /* Use grid layout directly */
+
+.view-list .meta-row { display: contents; } /* Flatten structure for grid */
+.view-list .work-title { color: var(--text); }
+.view-list .work-desc { color: #888; }
+
+.view-list .work-item:hover .work-title { color: var(--accent); text-decoration: underline; }
+
+/* --- 5. Hover Preview (Only for List Mode) --- */
+.hover-preview {
+    position: fixed;
+    width: 300px; height: 300px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* --- 6. Footer --- */
+footer {
+    padding: 40px 20px;
+    border-top: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    color: #666;
+    font-size: 11px;
 }
 
-.card-title { font-weight: 600; font-size: 1.1rem; }
-.card-category { color: #666; font-size: 0.9rem; margin-top: 0.2rem; }
-.card-date { color: #444; font-size: 0.9rem; }
-
-/* --- Info Section --- */
-.info-section {
-    padding: 6rem 4%;
-    border-top: 1px solid #222;
-}
-.info-content h2 { font-size: 1rem; color: #666; margin-bottom: 1rem; text-transform: uppercase;}
-.info-content p { font-size: 2rem; max-width: 800px; letter-spacing: -1px; }
-
-.info-grid {
-    display: flex;
-    gap: 4rem;
-    margin-top: 3rem;
-}
-.info-grid h3 { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
-.info-grid a { color: var(--text); text-decoration: none; line-height: 2; }
-
-/* --- Contact Form --- */
-.contact-section { padding: 6rem 4%; border-top: 1px solid #222; }
-.contact-container { max-width: 600px; }
-.minimal-form { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-
-.form-group { display: flex; gap: 1rem; }
-input, textarea {
-    width: 100%;
-    background: #111;
-    border: 1px solid #333;
-    padding: 1rem;
-    color: white;
-    border-radius: 8px;
-    font-family: var(--font);
-}
-input:focus, textarea:focus { outline: none; border-color: white; }
-
-button[type="submit"] {
-    align-self: flex-start;
-    padding: 1rem 2rem;
-    background: white;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* --- Mobile --- */
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .masonry-grid { column-count: 1; } /* Single column on phone */
-    .hero-intro h1 { font-size: 2.5rem; }
+    .works-grid { grid-template-columns: 1fr; } /* 1 Col on mobile */
+    .view-list .work-item { grid-template-columns: 1fr; gap: 5px; } /* Stack list on mobile */
+    .nav-right { display: none; } /* Simplify nav */
 }
