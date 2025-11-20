@@ -289,7 +289,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* =========================================
-   9. MOBILE RESPONSIVE (FINAL FOOTER FIX)
+   9. MOBILE RESPONSIVE (FINAL FIX)
    ========================================= */
 @media (max-width: 768px) {
     :root { 
@@ -317,6 +317,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .controls-wrapper { margin-bottom: 30px; }
     .controls-box { width: 100%; }
     
+    /* Works Grid: 2 Columns */
     .grid-layout.works-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -324,22 +325,24 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     }
     .work-item { margin-bottom: 0; }
 
-    /* --- FOOTER (REORDERED) --- */
-    footer {
-        margin-top: 80px;
-        padding: 20px;
+    /* --- FOOTER FIX --- */
+    /* We must use "footer.grid-layout" to override the desktop grid class */
+    footer.grid-layout {
         display: flex;
         flex-direction: column;
+        margin-top: 80px;
+        padding: 20px;
         text-align: left;
     }
 
-    /* Unwrap columns so we can reorder children */
+    /* Unwrap the columns to reorder items */
     .footer-col { display: contents; }
 
     /* 1. Brand Name */
     .footer-brand { 
         order: 1; 
         margin-bottom: 40px; 
+        font-weight: 700;
     }
 
     /* 2. Bio Text */
@@ -363,7 +366,6 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     #live-clock {
         order: 4;
         margin-bottom: 5px;
-        text-align: left;
     }
 
     /* 5. Copyright */
@@ -371,14 +373,13 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
         order: 5; 
         margin-top: 0; 
         margin-bottom: 5px;
-        color: #888;
+        color: #666;
     }
 
     /* 6. Credits */
     .credits {
         order: 6;
-        text-align: left;
-        color: #888;
+        color: #666;
     }
 
     /* --- PROJECT PAGE --- */
