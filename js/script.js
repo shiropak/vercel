@@ -1,5 +1,5 @@
 // DATA
-const portfolioItems = [
+const initialItems = [
     { 
         id: "joe-coffee", 
         title: "JOE COFFEE", 
@@ -25,8 +25,95 @@ const portfolioItems = [
             "https://images.unsplash.com/photo-1556942657-313d11b32ee7?q=80&w=1200&auto=format&fit=crop"
         ]
     },
-    // ... Add your other items here ...
+    { 
+        id: "lumina-health", 
+        title: "LUMINA HEALTH", 
+        client: "LUMINA INC", 
+        tags: "[GRAPHIC]", 
+        date: "08.2024", 
+        desc: "Visual identity and branding for a health tech startup, focused on creating trust and clarity.", 
+        img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    },
+    { 
+        id: "nestwell", 
+        title: "NESTWELL", 
+        client: "NESTWELL HOME", 
+        tags: "[ART]", 
+        date: "02.2024", 
+        desc: "An art direction project exploring the emotional connection to home through conceptual photography.", 
+        img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    },
+    { 
+        id: "alba-ceramics", 
+        title: "ALBA CERAMICS", 
+        client: "ALBA STUDIO", 
+        tags: "[CRAFT]", 
+        date: "09.2023", 
+        desc: "Branding and product photography for a bespoke ceramic studio, emphasizing artisanal process.", 
+        img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    },
+    { 
+        id: "waypoint", 
+        title: "WAYPOINT TRAVEL", 
+        client: "WAYPOINT APP", 
+        tags: "[UX/UI]", 
+        date: "04.2023", 
+        desc: "UX/UI design for a premium travel planning platform, focusing on intuitive navigation.", 
+        img: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    },
+    { 
+        id: "harbor-co", 
+        title: "HARBOR CO", 
+        client: "HARBOR SEAFOOD", 
+        tags: "[GRAPHIC]", 
+        date: "02.2023", 
+        desc: "Rebranding and packaging design for an artisanal seafood company.", 
+        img: "https://images.unsplash.com/photo-1529690086133-c8e4bc9e1f6a?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    },
+    { 
+        id: "nova-biotech", 
+        title: "NOVA BIOTECH", 
+        client: "NOVA LABS", 
+        tags: "[SCIENCE]", 
+        date: "05.2022", 
+        desc: "Creating visual identities for scientific innovation and cutting-edge research.", 
+        img: "https://images.unsplash.com/photo-1581093458891-8f30869852bb?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    }
 ];
+
+// Duplicate items to reach 20
+const portfolioItems = [];
+const totalItemsNeeded = 20;
+
+// Helper to get a random item from initialItems
+function getRandomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+for (let i = 0; i < totalItemsNeeded; i++) {
+    // Use modulo to cycle through initial items if we run out, or pick randomly
+    // Here we cycle to ensure variety
+    const baseItem = initialItems[i % initialItems.length];
+    
+    // Create a deep copy to avoid reference issues
+    const newItem = JSON.parse(JSON.stringify(baseItem));
+    
+    // Modify ID and Title for duplicates so they are unique
+    if (i >= initialItems.length) {
+        newItem.id = `${newItem.id}-${i + 1}`;
+        newItem.title = `${newItem.title} ${i + 1}`;
+        newItem.date = `0${(i % 12) + 1}.202${5 - Math.floor(i/12)}`; // Fake date variation
+    }
+    
+    portfolioItems.push(newItem);
+}
+
 
 // --- ROUTER ---
 if (window.location.pathname.includes('project.html')) {
@@ -48,13 +135,13 @@ function render(filter = 'all') {
     filteredItems.forEach((item, index) => {
         const el = document.createElement('div');
         el.className = 'work-item';
-        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
+        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`; // Faster animation for many items
         el.style.opacity = '0';
 
         el.innerHTML = `
             <a href="project.html?id=${item.id}" class="work-link">
                 <div class="work-image">
-                    <img src="${item.img}" alt="${item.title}">
+                    <img src="${item.img}" alt="${item.title}" loading="lazy"> <!-- Added lazy loading -->
                     <div class="image-overlay">
                         <div class="circular-border"></div>
                         <span class="see-more-btn">SEE MORE &rarr;</span>
@@ -132,11 +219,13 @@ function loadProjectDetail() {
             project.gallery.forEach(src => {
                 const img = document.createElement('img');
                 img.src = src;
+                img.loading = "lazy"; // Lazy load gallery images
                 galleryContainer.appendChild(img);
             });
         } else {
             const img = document.createElement('img');
             img.src = project.img;
+            img.loading = "lazy";
             galleryContainer.appendChild(img);
         }
     }
@@ -201,6 +290,7 @@ function updateClock() {
     hours = hours % 12; hours = hours ? hours : 12; 
     
     const clockEl = document.getElementById('live-clock');
+    // Safety check included here
     if(clockEl) clockEl.innerText = `ZÜRICH, CH ${hours}:${minutes} ${ampm}`;
 }
 setInterval(updateClock, 1000);
