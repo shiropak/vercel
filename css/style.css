@@ -117,8 +117,8 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 
 .work-image { 
     width: 100%; 
-    /* Remove fixed aspect ratio to match natural image height if preferred */
-    /* aspect-ratio: 4/5; */
+    /* I uncommented this line to force the tall shape again */
+    aspect-ratio: 4/5; 
     background-color: #1a1a1a; 
     overflow: hidden;
     position: relative; 
@@ -127,7 +127,8 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
 
 .work-image img { 
     width: 100%; 
-    height: auto; /* Allow natural height */
+    height: 100%; 
+    /* This ensures the image fills the box without squashing */
     object-fit: cover; 
     display: block; 
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
