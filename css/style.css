@@ -103,7 +103,7 @@ header { margin-bottom: 60px; position: relative; z-index: 100; }
     flex-direction: column;
     
     /* UPDATED: Increased gap between image and text */
-    gap: 24px; 
+    gap: 30px; 
     
     cursor: pointer; 
     break-inside: avoid;
