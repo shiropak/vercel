@@ -166,30 +166,84 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
 }
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-/* 9. MOBILE (FIXED LAYOUT) */
+/* =========================================
+   9. MOBILE RESPONSIVE (TIGHTER SPACING)
+   ========================================= */
 @media (max-width: 768px) {
-    :root { --page-padding: 20px; --grid-gap: 12px; }
+    :root { 
+        --page-padding: 20px; 
+        --grid-gap: 12px; 
+    }
 
-    /* Header Layout Re-order */
-    header.grid-layout { display: flex; flex-direction: column; position: relative; gap: 5px; margin-bottom: 40px; }
-    .header-col:first-child { display: contents; }
-    .header-col:first-child > div:first-child { order: 1; margin-bottom: 5px; }
+    /* --- HEADER LAYOUT RE-ORDERING --- */
+    header.grid-layout {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 5px; /* Tight spacing between links */
+        margin-bottom: 20px; /* Reduced from 40px to bring controls closer */
+    }
+
+    /* 1. Unwrap the first column */
+    .header-col:first-child {
+        display: contents;
+    }
+
+    /* 2. Order of Elements */
+    .header-col:first-child > div:first-child {
+        order: 1;
+        margin-bottom: 5px;
+    }
+
     .header-col:nth-child(2) { order: 2; }
     .header-col:nth-child(3) { order: 3; }
-    .header-right { order: 4; display: block !important; width: auto; }
-    .theme-switcher { position: absolute; top: 0; right: 0; }
-    .role { order: 5; margin-top: 40px; margin-bottom: 20px; display: block; }
 
-    /* General Mobile */
+    .header-right {
+        order: 4;
+        display: block !important; 
+        width: auto;
+    }
+
+    .theme-switcher {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    /* 3. FIX: Reduced Role Spacing */
+    .role {
+        order: 5;
+        margin-top: 15px;    /* Was 40px - Huge reduction */
+        margin-bottom: 10px; /* Was 20px */
+        display: block;
+        max-width: 150px;    /* Forces the line break like your screenshot */
+        line-height: 1.4;
+    }
+
+    /* --- CONTROLS SPACING --- */
+    .controls-wrapper {
+        margin-bottom: 30px; /* Reduced from 60px to bring Images closer */
+    }
     .controls-box { width: 100%; }
-    .grid-layout.works-container { display: grid; grid-template-columns: 1fr 1fr; row-gap: 20px; }
+
+    /* --- REST OF MOBILE STYLES --- */
+    .grid-layout.works-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+    }
     
-    footer { margin-top: 80px; padding: 20px; }
-    .footer-col { grid-column: 1 / -1; gap: 20px; margin-bottom: 40px; }
+    footer { margin-top: 60px; padding: 20px; } /* Reduced footer top margin */
+    
+    .footer-col { 
+        grid-column: 1 / -1; 
+        gap: 20px; 
+        margin-bottom: 40px; 
+    }
     .col-middle { padding-right: 0; }
     .col-right { align-items: flex-start; text-align: left; }
     .copyright { order: 10; }
-    
+
     .project-layout { display: flex; flex-direction: column; gap: 40px; }
     .project-description-col { font-size: 12px; }
 }
