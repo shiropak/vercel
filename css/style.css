@@ -289,7 +289,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* =========================================
-   9. MOBILE RESPONSIVE
+   9. MOBILE RESPONSIVE (FINAL FOOTER FIX)
    ========================================= */
 @media (max-width: 768px) {
     :root { 
@@ -297,7 +297,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
         --grid-gap: 12px; 
     }
 
-    /* Header Layout */
+    /* --- HEADER --- */
     header.grid-layout {
         display: flex;
         flex-direction: column;
@@ -311,36 +311,77 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .header-col:nth-child(3) { order: 3; }
     .header-right { order: 4; display: block !important; width: auto; }
     .theme-switcher { position: absolute; top: 0; right: 0; }
-    
-    .role { 
-        order: 5; 
-        margin-top: 15px; 
-        margin-bottom: 10px; 
-        display: block; 
-        max-width: 150px; 
-        line-height: 1.4; 
-    }
+    .role { order: 5; margin-top: 15px; margin-bottom: 10px; display: block; max-width: 150px; line-height: 1.4; }
 
-    /* Controls */
+    /* --- CONTROLS & GRID --- */
     .controls-wrapper { margin-bottom: 30px; }
     .controls-box { width: 100%; }
-
-    /* Grid */
+    
     .grid-layout.works-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         row-gap: 20px;
     }
     .work-item { margin-bottom: 0; }
-    
-    /* Footer */
-    footer { margin-top: 60px; padding: 20px; }
-    .footer-col { grid-column: 1 / -1; gap: 20px; margin-bottom: 40px; }
-    .col-middle { padding-right: 0; }
-    .col-right { align-items: flex-start; text-align: left; }
-    .copyright { order: 10; }
 
-    /* Project Page */
+    /* --- FOOTER (REORDERED) --- */
+    footer {
+        margin-top: 80px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    /* Unwrap columns so we can reorder children */
+    .footer-col { display: contents; }
+
+    /* 1. Brand Name */
+    .footer-brand { 
+        order: 1; 
+        margin-bottom: 40px; 
+    }
+
+    /* 2. Bio Text */
+    .footer-bio { 
+        order: 2; 
+        margin-bottom: 40px; 
+        max-width: 100%;
+    }
+
+    /* 3. Links (Stacked Vertically) */
+    .footer-links { 
+        order: 3; 
+        flex-direction: column; 
+        gap: 10px; 
+        margin-top: 0;
+        margin-bottom: 40px; 
+    }
+    .link-column { gap: 10px; }
+
+    /* 4. Clock */
+    #live-clock {
+        order: 4;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+
+    /* 5. Copyright */
+    .copyright { 
+        order: 5; 
+        margin-top: 0; 
+        margin-bottom: 5px;
+        color: #888;
+    }
+
+    /* 6. Credits */
+    .credits {
+        order: 6;
+        text-align: left;
+        color: #888;
+    }
+
+    /* --- PROJECT PAGE --- */
     .project-layout { display: flex; flex-direction: column; gap: 40px; }
     .project-description-col { font-size: 12px; }
 }
