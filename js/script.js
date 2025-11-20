@@ -13,11 +13,30 @@ const portfolioItems = [
 const container = document.getElementById('works-container');
 const preview = document.getElementById('hover-preview');
 
-function render() {
+// --- RENDER FUNCTION (Now accepts a filter) ---
+function render(filter = 'all') {
     container.innerHTML = '';
-    portfolioItems.forEach((item, index) => {
+    
+    // 1. Filter the data
+    const filteredItems = filter === 'all' 
+        ? portfolioItems 
+        : portfolioItems.filter(item => item.tags.toLowerCase().includes(filter));
+
+    // 2. If empty, show message
+    if(filteredItems.length === 0) {
+        container.innerHTML = '<div style="grid-column: span 4; opacity: 0.5;">NO PROJECTS FOUND IN THIS CATEGORY.</div>';
+        return;
+    }
+
+    // 3. Loop and Create
+    filteredItems.forEach((item, index) => {
         const el = document.createElement('div');
         el.className = 'work-item';
+        
+        // Animation delay for smooth filtering
+        el.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
+        el.style.opacity = '0'; // Start hidden for animation
+
         el.innerHTML = `
             <div class="work-image"><img src="${item.img}"></div>
             <div class="work-info">
@@ -26,6 +45,8 @@ function render() {
                 <div class="work-date">${item.date}</div>
             </div>
         `;
+        
+        // Hover Events
         el.addEventListener('mouseenter', () => {
             if(document.body.classList.contains('view-mode-list')) {
                 preview.style.backgroundImage = `url(${item.img})`;
@@ -39,11 +60,35 @@ function render() {
                 preview.style.top = e.clientY + 'px';
             }
         });
+        
         container.appendChild(el);
     });
 }
 
-// Logic
+// --- FILTER LOGIC (The Catalog Function) ---
+const filterOptions = document.querySelectorAll('#filter-row .control-option');
+
+filterOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+        // 1. Remove active class and circle from ALL buttons
+        filterOptions.forEach(btn => {
+            btn.classList.remove('active');
+            btn.innerText = btn.innerText.replace('●', '○'); // Swap circle
+        });
+
+        // 2. Add active class and circle to CLICKED button
+        opt.classList.add('active');
+        opt.innerText = opt.innerText.replace('○', '●'); // Swap circle
+
+        // 3. Get the filter value (all, graphic, art, etc.)
+        const filterValue = opt.getAttribute('data-filter');
+        
+        // 4. Re-render grid
+        render(filterValue);
+    });
+});
+
+// --- THEME LOGIC ---
 const btnLight = document.getElementById('theme-light');
 const btnDark = document.getElementById('theme-dark');
 const html = document.documentElement;
@@ -62,6 +107,7 @@ function setTheme(theme) {
 btnLight.addEventListener('click', () => setTheme('light'));
 btnDark.addEventListener('click', () => setTheme('dark'));
 
+// --- VIEW LOGIC (Grid vs List) ---
 document.getElementById('btn-list').addEventListener('click', () => {
     document.body.classList.add('view-mode-list');
     document.getElementById('btn-list').innerText = "● LIST";
@@ -73,4 +119,15 @@ document.getElementById('btn-grid').addEventListener('click', () => {
     document.getElementById('btn-grid').innerText = "● GRID";
 });
 
-render();
+// Add a simple fade-in animation to CSS via JS
+const styleSheet = document.createElement("style");
+styleSheet.innerText = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+`;
+document.head.appendChild(styleSheet);
+
+// Initial Load
+render('all');
