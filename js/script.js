@@ -38,7 +38,13 @@ function render(filter = 'all') {
         el.style.opacity = '0'; // Start hidden for animation
 
         el.innerHTML = `
-            <div class="work-image"><img src="${item.img}"></div>
+            <div class="work-image">
+                <img src="${item.img}" alt="${item.title}">
+                <div class="image-overlay">
+                    <div class="circular-border"></div>
+                    <a href="#" class="see-more-btn">SEE MORE &rarr;</a>
+                </div>
+            </div>
             <div class="work-info">
                 <div class="work-title">${index + 1} <br> ${item.title}</div>
                 <div class="work-meta">${item.desc} <br> ${item.tags}</div>
@@ -46,7 +52,7 @@ function render(filter = 'all') {
             </div>
         `;
         
-        // Hover Events
+        // Hover Events for List View Preview
         el.addEventListener('mouseenter', () => {
             if(document.body.classList.contains('view-mode-list')) {
                 preview.style.backgroundImage = `url(${item.img})`;
@@ -70,20 +76,15 @@ const filterOptions = document.querySelectorAll('#filter-row .control-option');
 
 filterOptions.forEach(opt => {
     opt.addEventListener('click', () => {
-        // 1. Remove active class and circle from ALL buttons
         filterOptions.forEach(btn => {
             btn.classList.remove('active');
-            btn.innerText = btn.innerText.replace('●', '○'); // Swap circle
+            btn.innerText = btn.innerText.replace('●', '○'); 
         });
 
-        // 2. Add active class and circle to CLICKED button
         opt.classList.add('active');
-        opt.innerText = opt.innerText.replace('○', '●'); // Swap circle
+        opt.innerText = opt.innerText.replace('○', '●');
 
-        // 3. Get the filter value (all, graphic, art, etc.)
         const filterValue = opt.getAttribute('data-filter');
-        
-        // 4. Re-render grid
         render(filterValue);
     });
 });
