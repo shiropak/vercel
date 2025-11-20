@@ -3,74 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Shiropak Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">MyPortfolio.</div>
-        <ul class="nav-links">
-            <li><a href="#work">Work</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact" class="btn-primary">Contact Me</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero hidden">
-        <h1>I build digital <span class="highlight">experiences</span> that matter.</h1>
-        <p class="subtitle">Designer & Developer based in Taipei.</p>
-        <div class="hero-btns">
-            <a href="#work" class="btn-secondary">View Work ↓</a>
-        </div>
-    </header>
-
-    <section id="work" class="container hidden">
-        <h2 class="section-title">Selected Work</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <div class="image-placeholder"></div>
-                <h3>E-Commerce Dashboard</h3>
-                <p>UI/UX Design & Frontend Dev</p>
+    <main class="bento-grid">
+        <div class="card profile-card">
+            <div class="profile-header">
+                <div class="status-dot"></div>
+                <span>Available for work</span>
             </div>
-            <div class="project-card">
-                <div class="image-placeholder"></div>
-                <h3>Finance App</h3>
-                <p>Mobile Application Design</p>
-            </div>
-            <div class="project-card">
-                <div class="image-placeholder"></div>
-                <h3>Brand Identity</h3>
-                <p>Logo & Guidelines</p>
+            <h1>Shiropak.</h1>
+            <p>Creative Developer & <br>Digital Designer.</p>
+            <div class="social-links">
+                <a href="#">Notion</a>
+                <a href="#">Instagram</a>
+                <a href="#">Email</a>
             </div>
         </div>
-    </section>
 
-    <section id="about" class="container hidden">
-        <h2 class="section-title">About Me</h2>
-        <p class="about-text">
-            I am a creative technologist obsessed with performance and clean design. 
-            I specialize in JavaScript, React, and interactive UI. When I'm not coding, 
-            I'm exploring photography.
-        </p>
-    </section>
-
-    <footer>
-        <div class="container">
-            <h2>Let's work together.</h2>
-            <a href="mailto:hello@example.com" class="email-link">hello@example.com</a>
-            <div class="socials">
-                <a href="#">Twitter</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">GitHub</a>
+        <div id="wp-projects-container" class="card work-feed-card">
+            <div class="card-header">
+                <h2>Latest Work</h2>
+                <span class="tag">Live from WordPress</span>
             </div>
-            <p class="copyright">© 2025 MyPortfolio.</p>
+            <div class="loading-spinner">Loading projects...</div>
+            <div id="projects-list" class="projects-list"></div>
         </div>
-    </footer>
 
-    <script src="script.js"></script>
+        <div class="card stack-card">
+            <h3>Stack</h3>
+            <div class="tags">
+                <span>JavaScript</span>
+                <span>CSS3</span>
+                <span>WordPress API</span>
+                <span>Vercel</span>
+            </div>
+        </div>
+
+        <div class="card visual-card">
+            <div class="visual-content">
+                <h3>Vision</h3>
+                <p>Crafting digital voids.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
