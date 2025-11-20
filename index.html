@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAYA METZGER CLONE</title>
-    
     <link rel="stylesheet" href="css/style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -14,15 +12,16 @@
 <body>
 <div class="site-wrapper">
 
+    <!-- HEADER -->
     <header class="grid-layout">
         <div class="header-col">
             <div>MAYA METZGER</div>
             <div class="role">VISUAL DESIGNER & ART DIRECTOR</div>
         </div>
-        <div class="header-col"><a href="#">INDEX</a></div>
-        <div class="header-col"><a href="#">INFO</a></div>
+        <div class="header-col"><a href="index.html">INDEX</a></div>
+        <div class="header-col"><a href="info.html">INFO</a></div>
         <div class="header-col header-right">
-            <a href="#">CONTACT</a>
+            <a href="contact.html">CONTACT</a>
             <div class="theme-switcher">
                 <span id="theme-light" class="theme-opt">LIGHT</span>
                 <span id="theme-dark" class="theme-opt active">DARK</span>
@@ -30,6 +29,7 @@
         </div>
     </header>
 
+    <!-- CONTROLS -->
     <div class="controls-wrapper">
         <div class="controls-box">
             <div class="control-row">
@@ -45,44 +45,40 @@
         </div>
     </div>
 
+    <!-- MAIN GRID -->
     <main id="works-container" class="grid-layout works-container">
-        </main>
+        <!-- Works injected by JS -->
+    </main>
 
+    <!-- FOOTER -->
     <footer class="grid-layout">
-        
         <div class="footer-col col-left">
             <div class="footer-brand">MAYA METZGER</div>
             <div class="copyright">© COPYRIGHT 2025</div>
         </div>
-
         <div class="footer-col col-middle">
             <p class="footer-bio">
-                CREATING VISUAL NARRATIVES AT THE INTERSECTION OF ART, DESIGN, AND TECHNOLOGY. 
-                ALWAYS DRIVEN BY CURIOSITY, CULTURE, AND THE PURSUIT OF TIMELESS CREATIVITY.
+                CREATING VISUAL NARRATIVES AT THE INTERSECTION OF ART, DESIGN, AND TECHNOLOGY.
             </p>
             <div class="footer-links">
                 <div class="link-column">
                     <a href="#">→ LINKEDIN</a>
                     <a href="#">→ INSTAGRAM</a>
-                    <a href="#">→ THREADS</a>
                 </div>
                 <div class="link-column">
-                    <a href="#">→ CONTACT</a>
+                    <a href="contact.html">→ CONTACT</a>
                 </div>
             </div>
         </div>
-
         <div class="footer-col col-right">
             <div id="live-clock">ZÜRICH, CH 00:00 PM</div>
             <div class="credits">WEBSITE BY SHIROPAK</div>
         </div>
-
     </footer>
     
 </div>
 
 <div id="hover-preview" class="hover-preview"></div>
-
 <script src="js/script.js"></script>
 </body>
 </html>
