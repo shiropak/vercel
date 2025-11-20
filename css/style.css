@@ -289,7 +289,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* =========================================
-   9. MOBILE RESPONSIVE (FINAL FIX)
+   9. MOBILE RESPONSIVE (LEFT ALIGN FIX)
    ========================================= */
 @media (max-width: 768px) {
     :root { 
@@ -317,7 +317,6 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .controls-wrapper { margin-bottom: 30px; }
     .controls-box { width: 100%; }
     
-    /* Works Grid: 2 Columns */
     .grid-layout.works-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -326,60 +325,69 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .work-item { margin-bottom: 0; }
 
     /* --- FOOTER FIX --- */
-    /* We must use "footer.grid-layout" to override the desktop grid class */
     footer.grid-layout {
         display: flex;
         flex-direction: column;
-        margin-top: 80px;
+        align-items: flex-start; /* THIS FORCES EVERYTHING LEFT */
+        margin-top: 60px;
         padding: 20px;
         text-align: left;
     }
 
-    /* Unwrap the columns to reorder items */
+    /* Unwrap columns */
     .footer-col { display: contents; }
 
-    /* 1. Brand Name */
+    /* 1. Brand */
     .footer-brand { 
         order: 1; 
         margin-bottom: 40px; 
         font-weight: 700;
+        text-align: left;
     }
 
-    /* 2. Bio Text */
+    /* 2. Bio */
     .footer-bio { 
         order: 2; 
         margin-bottom: 40px; 
         max-width: 100%;
+        text-align: left;
     }
 
-    /* 3. Links (Stacked Vertically) */
+    /* 3. Links */
     .footer-links { 
         order: 3; 
         flex-direction: column; 
         gap: 10px; 
         margin-top: 0;
         margin-bottom: 40px; 
+        align-items: flex-start; /* Ensure links align left */
     }
     .link-column { gap: 10px; }
 
-    /* 4. Clock */
+    /* 4. Clock - Explicit Left Align */
     #live-clock {
         order: 4;
         margin-bottom: 5px;
+        text-align: left !important;
+        align-self: flex-start;
     }
 
-    /* 5. Copyright */
+    /* 5. Copyright - Explicit Left Align */
     .copyright { 
         order: 5; 
         margin-top: 0; 
         margin-bottom: 5px;
-        color: #666;
+        color: #888;
+        text-align: left !important;
+        align-self: flex-start;
     }
 
-    /* 6. Credits */
+    /* 6. Credits - Explicit Left Align */
     .credits {
         order: 6;
-        color: #666;
+        color: #888;
+        text-align: left !important;
+        align-self: flex-start;
     }
 
     /* --- PROJECT PAGE --- */
