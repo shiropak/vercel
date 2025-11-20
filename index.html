@@ -60,38 +60,22 @@
         /* --- HEADER --- */
         header { margin-bottom: 60px; position: relative; z-index: 100; }
 
-        /* Default Column Style (Vertical Stack) */
         .header-col { display: flex; flex-direction: column; gap: 5px; }
         .role { color: #666; margin-top: 15px; max-width: 150px; line-height: 1.4; }
         
-        /* --- HEADER RIGHT FIX --- */
-        /* We override the default column behavior to be a ROW */
+        /* HEADER RIGHT FIX */
         .header-right { 
             display: flex !important; 
-            flex-direction: row !important; /* Forces them onto same line */
-            justify-content: space-between; /* Contact Left, Theme Right */
-            align-items: flex-start; /* Aligns tops */
+            flex-direction: row !important; 
+            justify-content: space-between; 
+            align-items: flex-start; 
             width: 100%;
         }
 
-        /* THEME SWITCHER */
-        .theme-switcher {
-            display: flex;
-            gap: 15px; 
-        }
-
-        .theme-opt {
-            cursor: pointer;
-            opacity: 0.3; 
-            transition: opacity 0.3s ease;
-        }
-
+        .theme-switcher { display: flex; gap: 15px; }
+        .theme-opt { cursor: pointer; opacity: 0.3; transition: opacity 0.3s ease; }
         .theme-opt:hover { opacity: 0.6; }
-        
-        .theme-opt.active {
-            opacity: 1; 
-            font-weight: 700;
-        }
+        .theme-opt.active { opacity: 1; font-weight: 700; }
 
         /* --- CONTROLS --- */
         .controls-wrapper { margin-bottom: 60px; grid-column: 1 / -1; }
@@ -108,15 +92,36 @@
         .control-option.active { opacity: 1; font-weight: 700; }
         .control-option:hover { opacity: 0.8; }
 
-        /* --- WORKS --- */
+        /* --- WORKS (THE FIX) --- */
         .work-item {
             margin-bottom: 80px;
-            display: flex; flex-direction: column; gap: 15px;
+            display: flex; flex-direction: column;
+            gap: 15px;
             cursor: pointer; break-inside: avoid;
         }
-        .work-image { width: 100%; display: block; }
-        .work-image img { width: 100%; height: auto; display: block; transition: opacity 0.3s ease; }
-        .work-item:hover .work-image img { opacity: 0.8; }
+
+        /* 1. Define the shape of the container */
+        .work-image { 
+            width: 100%; 
+            aspect-ratio: 4/5; /* PORTRAIT RATIO (Not square, but consistent) */
+            background-color: #1a1a1a; /* Placeholder gray if image breaks */
+            overflow: hidden;
+            display: block;
+        }
+
+        /* 2. Make image fill that shape */
+        .work-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Crops image perfectly to fit */
+            display: block; 
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
+        }
+
+        .work-item:hover .work-image img { 
+            opacity: 0.9; 
+            transform: scale(1.05); /* Subtle Zoom */
+        }
 
         .work-info { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
         .work-title { font-weight: 700; }
@@ -162,10 +167,8 @@
         </div>
         <div class="header-col"><a href="#">INDEX</a></div>
         <div class="header-col"><a href="#">INFO</a></div>
-        
         <div class="header-col header-right">
             <a href="#">CONTACT</a>
-            
             <div class="theme-switcher">
                 <span id="theme-light" class="theme-opt">LIGHT</span>
                 <span id="theme-dark" class="theme-opt active">DARK</span>
@@ -196,16 +199,16 @@
 <div id="hover-preview" class="hover-preview"></div>
 
 <script>
-    // DATA
+    // DATA: Updated with robust URLs and matching 4:5 feel
     const portfolioItems = [
-        { title: "JOE COFFEE", tags: "[INTERIOR]", date: "04.2025", desc: "BREWED TO PERFECTION", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" },
-        { title: "ATLAS MOBILITY", tags: "[TECH]", date: "06.2025", desc: "FUTURE TRANSIT", img: "https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=800&auto=format&fit=crop" },
-        { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", img: "https://images.unsplash.com/photo-1576091160550-2187d80a58fd?q=80&w=800&auto=format&fit=crop" },
-        { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "HOME & COMFORT", img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=800&auto=format&fit=crop" },
-        { title: "ALBA CERAMICS", tags: "[CRAFT]", date: "09.2023", desc: "CONTEMPORARY CRAFT", img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=800&auto=format&fit=crop" },
-        { title: "WAYPOINT", tags: "[UX/UI]", date: "04.2023", desc: "SEAMLESS JOURNEYS", img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop" },
-        { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", img: "https://images.unsplash.com/photo-1559136555-930b730e8583?q=80&w=800&auto=format&fit=crop" },
-        { title: "NOVA BIOTECH", tags: "[SCIENCE]", date: "05.2022", desc: "FUTURE WELLNESS", img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=800&auto=format&fit=crop" }
+        { title: "JOE COFFEE", tags: "[INTERIOR]", date: "04.2025", desc: "BREWED TO PERFECTION", img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop" },
+        { title: "ATLAS MOBILITY", tags: "[TECH]", date: "06.2025", desc: "FUTURE TRANSIT", img: "https://images.unsplash.com/photo-1517420704952-d9f3971d7894?q=80&w=800&auto=format&fit=crop" },
+        { title: "LUMINA HEALTH", tags: "[GRAPHIC]", date: "08.2024", desc: "CLARITY IN CARE", img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=800&auto=format&fit=crop" },
+        { title: "NESTWELL", tags: "[ART]", date: "02.2024", desc: "HOME & COMFORT", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop" },
+        { title: "ALBA CERAMICS", tags: "[CRAFT]", date: "09.2023", desc: "CONTEMPORARY CRAFT", img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" },
+        { title: "WAYPOINT", tags: "[UX/UI]", date: "04.2023", desc: "SEAMLESS JOURNEYS", img: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop" },
+        { title: "HARBOR CO", tags: "[GRAPHIC]", date: "02.2023", desc: "MODERN TRADITION", img: "https://images.unsplash.com/photo-1529690086133-c8e4bc9e1f6a?q=80&w=800&auto=format&fit=crop" },
+        { title: "NOVA BIOTECH", tags: "[SCIENCE]", date: "05.2022", desc: "FUTURE WELLNESS", img: "https://images.unsplash.com/photo-1581093458891-8f30869852bb?q=80&w=800&auto=format&fit=crop" }
     ];
 
     const container = document.getElementById('works-container');
@@ -241,7 +244,7 @@
         });
     }
 
-    // THEME LOGIC
+    // Logic
     const btnLight = document.getElementById('theme-light');
     const btnDark = document.getElementById('theme-dark');
     const html = document.documentElement;
@@ -260,7 +263,6 @@
     btnLight.addEventListener('click', () => setTheme('light'));
     btnDark.addEventListener('click', () => setTheme('dark'));
 
-    // VIEW LOGIC
     document.getElementById('btn-list').addEventListener('click', () => {
         document.body.classList.add('view-mode-list');
         document.getElementById('btn-list').innerText = "● LIST";
