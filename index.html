@@ -1,26 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Minimal Coming Soon Page Template</title>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:700" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-<script>document.addEventListener("touchstart", function(){}, true);</script> <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'><link rel="stylesheet" href="./style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="wrapper">
-  <h1>coming soon<span class="dot">.</span></h1>
-  <p>Put some text here.</p>
-  <div class="icons">
-    <a href=""><i class="fa fa-twitter"></i></a>
-    <a href=""><i class="fa fa-youtube-play"></i></a>
-    <a href=""><i class="fa fa-paper-plane"></i></a>
-  </div>
- </div>
-<!-- partial -->
-  
+
+    <nav class="navbar">
+        <div class="logo">MyPortfolio.</div>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact" class="btn-primary">Contact Me</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero hidden">
+        <h1>I build digital <span class="highlight">experiences</span> that matter.</h1>
+        <p class="subtitle">Designer & Developer based in Taipei.</p>
+        <div class="hero-btns">
+            <a href="#work" class="btn-secondary">View Work ↓</a>
+        </div>
+    </header>
+
+    <section id="work" class="container hidden">
+        <h2 class="section-title">Selected Work</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="image-placeholder"></div>
+                <h3>E-Commerce Dashboard</h3>
+                <p>UI/UX Design & Frontend Dev</p>
+            </div>
+            <div class="project-card">
+                <div class="image-placeholder"></div>
+                <h3>Finance App</h3>
+                <p>Mobile Application Design</p>
+            </div>
+            <div class="project-card">
+                <div class="image-placeholder"></div>
+                <h3>Brand Identity</h3>
+                <p>Logo & Guidelines</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container hidden">
+        <h2 class="section-title">About Me</h2>
+        <p class="about-text">
+            I am a creative technologist obsessed with performance and clean design. 
+            I specialize in JavaScript, React, and interactive UI. When I'm not coding, 
+            I'm exploring photography.
+        </p>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h2>Let's work together.</h2>
+            <a href="mailto:hello@example.com" class="email-link">hello@example.com</a>
+            <div class="socials">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
+            </div>
+            <p class="copyright">© 2025 MyPortfolio.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
