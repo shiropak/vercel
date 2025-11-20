@@ -167,7 +167,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
 .hover-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* =========================================
-   9. MOBILE RESPONSIVE (TIGHTER SPACING)
+   9. MOBILE RESPONSIVE (FINAL FIX)
    ========================================= */
 @media (max-width: 768px) {
     :root { 
@@ -175,21 +175,17 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
         --grid-gap: 12px; 
     }
 
-    /* --- HEADER LAYOUT RE-ORDERING --- */
+    /* --- HEADER LAYOUT --- */
     header.grid-layout {
         display: flex;
         flex-direction: column;
         position: relative;
-        gap: 5px; /* Tight spacing between links */
-        margin-bottom: 20px; /* Reduced from 40px to bring controls closer */
+        gap: 5px;
+        margin-bottom: 20px;
     }
 
-    /* 1. Unwrap the first column */
-    .header-col:first-child {
-        display: contents;
-    }
-
-    /* 2. Order of Elements */
+    .header-col:first-child { display: contents; }
+    
     .header-col:first-child > div:first-child {
         order: 1;
         margin-bottom: 5px;
@@ -210,30 +206,33 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
         right: 0;
     }
 
-    /* 3. FIX: Reduced Role Spacing */
     .role {
         order: 5;
-        margin-top: 15px;    /* Was 40px - Huge reduction */
-        margin-bottom: 10px; /* Was 20px */
+        margin-top: 15px;
+        margin-bottom: 10px;
         display: block;
-        max-width: 150px;    /* Forces the line break like your screenshot */
+        max-width: 150px;
         line-height: 1.4;
     }
 
-    /* --- CONTROLS SPACING --- */
-    .controls-wrapper {
-        margin-bottom: 30px; /* Reduced from 60px to bring Images closer */
-    }
+    /* --- CONTROLS --- */
+    .controls-wrapper { margin-bottom: 30px; }
     .controls-box { width: 100%; }
 
-    /* --- REST OF MOBILE STYLES --- */
+    /* --- WORKS GRID (THE FIX IS HERE) --- */
     .grid-layout.works-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        row-gap: 20px;
+        grid-template-columns: 1fr 1fr; /* 2 Columns */
+        gap: 20px; /* Consistent vertical and horizontal gap */
+    }
+
+    /* FIX: Remove the desktop bottom margin so gaps aren't huge */
+    .work-item {
+        margin-bottom: 0; 
     }
     
-    footer { margin-top: 60px; padding: 20px; } /* Reduced footer top margin */
+    /* --- FOOTER --- */
+    footer { margin-top: 60px; padding: 20px; }
     
     .footer-col { 
         grid-column: 1 / -1; 
@@ -244,6 +243,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .col-right { align-items: flex-start; text-align: left; }
     .copyright { order: 10; }
 
+    /* --- PROJECT DETAIL --- */
     .project-layout { display: flex; flex-direction: column; gap: 40px; }
     .project-description-col { font-size: 12px; }
 }
