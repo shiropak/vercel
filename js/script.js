@@ -200,6 +200,46 @@ const portfolioItems = [
         img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
         gallery: []
     }
+    { 
+        id: "joe-coffee", 
+        title: "JOE COFFEE", 
+        client: "JOE COFFEE NY", 
+        tags: "[INTERIOR]", 
+        date: "04.2025", 
+        desc: "A modern take on a classic coffee house experience, blending minimalist design with warm, inviting textures.", 
+        img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=1200&auto=format&fit=crop"]
+    },
+    { 
+        id: "atlas-mobility", 
+        title: "ATLAS MOBILITY", 
+        client: "ATLAS CORP", 
+        tags: "[TECH]", 
+        date: "06.2025", 
+        desc: "Designing intuitive interfaces for next-generation urban transport systems.", 
+        img: "https://images.unsplash.com/photo-1517420704952-d9f3971d7894?q=80&w=800&auto=format&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1556942657-313d11b32ee7?q=80&w=1200&auto=format&fit=crop"]
+    },
+    { 
+        id: "lumina-health", 
+        title: "LUMINA HEALTH", 
+        client: "LUMINA INC", 
+        tags: "[GRAPHIC]", 
+        date: "08.2024", 
+        desc: "Visual identity and branding for a health tech startup, focused on creating trust and clarity.", 
+        img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    },
+    { 
+        id: "nestwell", 
+        title: "NESTWELL", 
+        client: "NESTWELL HOME", 
+        tags: "[ART]", 
+        date: "02.2024", 
+        desc: "An art direction project exploring the emotional connection to home through conceptual photography.", 
+        img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
+        gallery: []
+    }
 ];
 
 // STATE
