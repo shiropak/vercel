@@ -11,7 +11,7 @@
     
     --font-mono: 'Space Mono', monospace;
     
-    --page-padding: 60px; /* Left/Right/Bottom Padding */
+    --page-padding: 60px; 
     --grid-gap: 16px; 
     --max-width: 1800px;
 }
@@ -35,7 +35,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     
-    /* FIXED: Reduced Top Padding (Was 60px) */
+    /* Compact Top Padding */
     padding: 30px var(--page-padding) var(--page-padding); 
     
     width: 100%;
@@ -59,9 +59,9 @@ a { text-decoration: none; color: inherit; cursor: pointer; }
 /* =========================================
    3. HEADER
    ========================================= */
-/* FIXED: Reduced Bottom Margin (Role to Controls gap) */
 header { 
-    margin-bottom: 20px; /* Was 60px */
+    /* Compact Header Bottom Margin */
+    margin-bottom: 20px; 
     position: relative; 
     z-index: 100; 
 }
@@ -85,7 +85,12 @@ header {
 /* =========================================
    4. LANDING PAGE CONTROLS
    ========================================= */
-.controls-wrapper { margin-bottom: 60px; grid-column: 1 / -1; }
+.controls-wrapper { 
+    /* FIXED: Reduced Controls to Works gap */
+    margin-bottom: 20px; /* Was 60px */
+    grid-column: 1 / -1; 
+}
+
 .controls-box {
     background: var(--hover-bg);
     display: inline-flex;
@@ -233,9 +238,7 @@ header {
    7. FOOTER
    ========================================= */
 footer {
-    /* FIXED: Reduced Top Margin (Works to Footer gap) */
-    margin-top: 80px; /* Was 150px */
-    
+    margin-top: 80px;
     background-color: var(--footer-bg); 
     padding: 40px; 
     min-height: 250px;
@@ -311,6 +314,7 @@ body.view-mode-list .work-title:hover { text-decoration: underline; color: var(-
     .header-col:nth-child(3) { order: 3; }
     .header-right { order: 4; display: block !important; width: auto; }
     .theme-switcher { position: absolute; top: 0; right: 0; }
+    
     .role { 
         order: 5; 
         margin-top: 15px; 
